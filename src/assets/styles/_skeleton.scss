@@ -1,0 +1,65 @@
+/*! purgecss start ignore */
+.loading-image {
+  background: #ffffff;
+  background: -webkit-linear-gradient(top right, #ffffff, #d3d3d2);
+  background: -moz-linear-gradient(top right, #ffffff, #d3d3d2);
+  background: linear-gradient(to bottom left, #ffffff, #d3d3d2);
+}
+
+.skeleton {
+  position: relative;
+  display: block;
+  user-select: none;
+  overflow: hidden;
+  // color: transparent;
+  background: #d1d5db;
+  border-radius: 12px;
+
+  // * {
+  //   visibility: hidden;
+  // }
+
+  &--wave {
+    position: relative;
+    overflow: hidden;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+
+      animation: wave 1.5s linear 0s infinite;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+      transform: translate3d(-100%, 0, 0);
+      will-change: transform;
+    }
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  60% {
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+.skeleton-enter-active,
+.skeleton-leave-active-active {
+  transition: opacity 0.1s ease-in-out;
+}
+
+.skeleton-enter,
+.skeleton-leave-active {
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+
+/*! purgecss end ignore */

@@ -1,0 +1,16 @@
+$text-color: #000000;
+$primary: #ec62b5;
+$secondary: #424ebb;
+$gray: #b0b0b0;
+$light-gray: #dee2e6;
+$red: #fe5353;
+$font-famaly: "Open Sans", sans-serif;
+
+:root {
+  --text-color: #{$text-color};
+  --primary: #{$primary};
+  --secondary: #{$secondary};
+  --gray: #{$gray};
+  --light-gray: #{$light-gray};
+  --red: #{$red};
+}

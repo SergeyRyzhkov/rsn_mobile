@@ -1,0 +1,170 @@
+html {
+  // overflow-x: hidden;
+  // margin-right: calc(-1 * (100vw - 100%));
+}
+
+body {
+  max-width: 100vw;
+  text-rendering: optimizeSpeed;
+}
+
+.layout-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.page-wrapper {
+  flex-grow: 1;
+  will-change: scroll-position;
+  padding-top: 16px;
+  padding-bottom: 24px;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  display: block;
+  border: 0;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+img {
+  border: 0px;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+svg {
+  shape-rendering: optimizeSpeed;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.2s ease;
+}
+.slide-enter-to {
+  position: absolute;
+  right: 0;
+}
+.slide-enter-from {
+  position: absolute;
+  right: -100vw;
+}
+.slide-leave-to {
+  position: absolute;
+  left: -100vw;
+}
+.slide-leave-from {
+  position: absolute;
+  left: 0;
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slide-left-enter {
+  transform: translateX(100%);
+}
+
+.slide-left-leave-to {
+  transform: translateX(-100%);
+}
+
+.slide-right-enter {
+  transform: translateX(-100%);
+}
+
+.slide-right-leave-to {
+  transform: translateX(100%);
+}
+
+.scroll-snap-item-y {
+  scroll-snap-align: start;
+}
+
+.no-scrollbar {
+  /*FireFox*/
+  scrollbar-width: none;
+  /*IE10+*/
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+.no-scrollbar::-webkit-scrollbar {
+  /*Chrome, Safari, Edge*/
+  display: none;
+}
+
+hr {
+  border-color: #424ebb !important;
+  opacity: 0.3;
+}
+
+.shadow-panel {
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.custom-tel-input {
+  .vue-tel-input {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #c4ccd0;
+    border-radius: 0;
+
+    .vti__dropdown {
+      padding-left: 0;
+    }
+
+    &:focus-within {
+      box-shadow: none;
+      border-bottom: 1px solid #c4ccd0;
+    }
+  }
+
+  .has_error {
+    border-bottom: 1px solid #eb5757;
+
+    ::placeholder {
+      color: #eb5757;
+    }
+  }
+}
+
+.global-search-content {
+  padding: 10px;
+  top: 5px;
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  z-index: 9999;
+  max-height: 60vh;
+  overflow: auto;
+
+  transition: all 0.3s ease-in-out;
+
+  * h2 {
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
