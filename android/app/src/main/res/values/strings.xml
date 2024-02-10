@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Врачи-онлайн</string>
-    <string name="title_activity_main">Врачи-онлайн</string>
+    <string name="app_name">От Рыжкова</string>
+    <string name="title_activity_main">От Рыжкова</string>
     <string name="package_name">ryzhkov.customer.app</string>
     <string name="custom_url_scheme">ryzhkov.customer.app</string>
 </resources>
