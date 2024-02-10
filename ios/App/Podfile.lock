@@ -3,22 +3,10 @@ PODS:
     - CapacitorCordova
   - CapacitorApp (5.0.7):
     - Capacitor
-  - CapacitorCommunityFileOpener (1.0.5):
-    - Capacitor
   - CapacitorCordova (5.7.0)
   - CapacitorDevice (5.0.7):
     - Capacitor
-  - CapacitorFilesystem (5.2.1):
-    - Capacitor
-  - CapacitorPreferences (5.0.7):
-    - Capacitor
-  - CapacitorPushNotifications (5.1.1):
-    - Capacitor
-  - CapacitorShare (5.0.7):
-    - Capacitor
   - CapacitorSplashScreen (5.0.7):
-    - Capacitor
-  - CapawesomeCapacitorAppUpdate (5.1.0):
     - Capacitor
   - CordovaPlugins (5.7.0):
     - CapacitorCordova
@@ -78,15 +66,9 @@ PODS:
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
-  - "CapacitorCommunityFileOpener (from `../../node_modules/@capacitor-community/file-opener`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorDevice (from `../../node_modules/@capacitor/device`)"
-  - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
-  - "CapacitorPreferences (from `../../node_modules/@capacitor/preferences`)"
-  - "CapacitorPushNotifications (from `../../node_modules/@capacitor/push-notifications`)"
-  - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
-  - "CapawesomeCapacitorAppUpdate (from `../../node_modules/@capawesome/capacitor-app-update`)"
   - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
   - Firebase/Messaging
 
@@ -107,39 +89,21 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorApp:
     :path: "../../node_modules/@capacitor/app"
-  CapacitorCommunityFileOpener:
-    :path: "../../node_modules/@capacitor-community/file-opener"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorDevice:
     :path: "../../node_modules/@capacitor/device"
-  CapacitorFilesystem:
-    :path: "../../node_modules/@capacitor/filesystem"
-  CapacitorPreferences:
-    :path: "../../node_modules/@capacitor/preferences"
-  CapacitorPushNotifications:
-    :path: "../../node_modules/@capacitor/push-notifications"
-  CapacitorShare:
-    :path: "../../node_modules/@capacitor/share"
   CapacitorSplashScreen:
     :path: "../../node_modules/@capacitor/splash-screen"
-  CapawesomeCapacitorAppUpdate:
-    :path: "../../node_modules/@capawesome/capacitor-app-update"
   CordovaPlugins:
     :path: "../capacitor-cordova-ios-plugins"
 
 SPEC CHECKSUMS:
   Capacitor: fc155ee2ee45a2093d716f13cf5aa5a865e2d85a
   CapacitorApp: 17fecd0e6cb23feafac7eb0939417389038b0979
-  CapacitorCommunityFileOpener: 8ae87db61961a6166cb929cc16e3cc719ea58da1
   CapacitorCordova: e825fce1a2e14e4b5730641c7e098dccf74397b7
   CapacitorDevice: fc91bdb484dc0e70755e9b621cd557afe642613a
-  CapacitorFilesystem: 9f3e3c7fea2fff12f46dd5b07a2914f2103e4cfc
-  CapacitorPreferences: 77ac427e98db83bace772455f8ba447430382c4c
-  CapacitorPushNotifications: 2327900bc002f5ff49ee6d2231796d0635b4a1b0
-  CapacitorShare: c6a1ebbf0114ff9e863b966cd6052678fa25d480
   CapacitorSplashScreen: dd3de3f3644710fa2a697cfb91ec262eece4d242
-  CapawesomeCapacitorAppUpdate: 04f2c4b7942ccc72a86bcd553ab3c546df422838
   CordovaPlugins: 86a69db0bf63e562e0f7e6bde35e88e51bbe9f96
   Firebase: a3ea7eba4382afd83808376edb99acdaff078dcf
   FirebaseCore: 813838072b797b64f529f3c2ee35e696e5641dd1
@@ -151,6 +115,6 @@ SPEC CHECKSUMS:
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
 
-PODFILE CHECKSUM: ad275f0d64f1c4137875136ef9b6bab6cef22a0f
+PODFILE CHECKSUM: d411942bbf7665d598a51aa725b38887add71847
 
 COCOAPODS: 1.11.3
