@@ -18,7 +18,6 @@
   "dependencies": {
     "@awesome-cordova-plugins/calendar": "^6.4.0",
     "@awesome-cordova-plugins/core": "^6.4.0",
-    "@capacitor-community/speech-recognition": "^5.0.0",
     "@capacitor/device": "^5.0.7",
     "@capacitor/preferences": "^5.0.7",
     "@capacitor/splash-screen": "^5.0.7",
@@ -37,7 +36,6 @@
     "image-blob-reduce": "^4.1.0",
     "pinia": "^2.1.7",
     "query-string": "^8.1.0",
-    "speechmatics": "^3.1.7",
     "vue": "^3.4.18",
     "vue-advanced-cropper": "^2.8.3",
     "vue-router": "^4.2.5",
