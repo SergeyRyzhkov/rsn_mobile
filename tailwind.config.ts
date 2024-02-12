@@ -61,6 +61,15 @@ export default {
       "light-gray": "var(--light-gray)",
     },
 
+    extend: {
+      spacing: {
+        "safe-top": "calc(10px + env(safe-area-inset-top))",
+        "safe-bottom": "env(safe-area-inset-bottom)",
+        "safe-left": "env(safe-area-inset-left)",
+        "safe-right": "env(safe-area-inset-right)",
+      },
+    },
+
     container: {
       center: true,
       padding: {

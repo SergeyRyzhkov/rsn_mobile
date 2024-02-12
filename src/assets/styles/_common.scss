@@ -16,10 +16,24 @@ body {
 }
 
 .page-wrapper {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   will-change: scroll-position;
-  padding-top: 16px;
-  padding-bottom: 24px;
+}
+
+.main-header {
+  // margin-top: 16px;
+  //padding-bottom: 16px;
+  // position: sticky;
+  // top: 16px;
+  // z-index: 99999;
+  // background: white;
+  /* iOS 11.0 */
+  // padding-top: constant(safe-area-inset-top);
+  /* Высота статус-бара в iOS 11+ */
+  // padding-top: env(safe-area-inset-top);
+  // padding-top: 20px;
 }
 
 *,
@@ -56,7 +70,7 @@ svg {
 
 .slide-enter-active,
 .slide-leave-active {
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 .slide-enter-to {
   position: absolute;
@@ -75,8 +89,6 @@ svg {
   left: 0;
 }
 
-.slide-right-enter-active,
-.slide-right-leave-active,
 .slide-left-enter-active,
 .slide-left-leave-active {
   transition: all 0.3s ease;
@@ -88,14 +100,6 @@ svg {
 
 .slide-left-leave-to {
   transform: translateX(-100%);
-}
-
-.slide-right-enter {
-  transform: translateX(-100%);
-}
-
-.slide-right-leave-to {
-  transform: translateX(100%);
 }
 
 .scroll-snap-item-y {
@@ -116,12 +120,6 @@ svg {
 hr {
   border-color: #424ebb !important;
   opacity: 0.3;
-}
-
-.shadow-panel {
-  box-shadow:
-    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .custom-tel-input {
@@ -151,20 +149,6 @@ hr {
   }
 }
 
-.global-search-content {
-  padding: 10px;
-  top: 5px;
-  position: absolute;
-  width: 100%;
-  background-color: white;
-  z-index: 9999;
-  max-height: 60vh;
-  overflow: auto;
-
-  transition: all 0.3s ease-in-out;
-
-  * h2 {
-    font-size: 15px;
-    font-weight: 600;
-  }
+.page-header {
+  @apply z-[99999] sticky pt-safe-top top-0 bg-primary pb-[10px];
 }

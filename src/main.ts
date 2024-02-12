@@ -9,9 +9,9 @@ import "dayjs/locale/ru";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { SplashScreen } from "@capacitor/splash-screen";
-import { App as CapacitorApp, URLOpenListenerEvent } from "@capacitor/app";
 import VueTelInput from "vue-tel-input";
 import "vue-tel-input/vue-tel-input.css";
+import { App as mobileApp } from "@capacitor/app";
 
 const app = createApp(App);
 
@@ -23,10 +23,14 @@ app.directive("lazysrc", lazySrcDirective);
 
 app.use(createPinia());
 app.use(VueTelInput);
+
 const router = createAppRouter();
 app.use(router);
 
-app.mount("#app");
+try {
+  app.mount("#app");
+} catch (err) {
+  mobileApp.exitApp();
+}
 
 SplashScreen.hide();
-
