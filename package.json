@@ -18,6 +18,7 @@
   "dependencies": {
     "@awesome-cordova-plugins/calendar": "^6.4.0",
     "@awesome-cordova-plugins/core": "^6.4.0",
+    "@capacitor-community/speech-recognition": "^5.0.0",
     "@capacitor/device": "^5.0.7",
     "@capacitor/preferences": "^5.0.7",
     "@capacitor/splash-screen": "^5.0.7",
