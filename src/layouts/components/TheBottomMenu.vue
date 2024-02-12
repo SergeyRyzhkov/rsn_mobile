@@ -25,9 +25,9 @@ const initMenuItemsList = () => {
   });
 
   meniItems.value.push({
-    linkName: "Записаться",
-    icon: "/icons/edit.svg",
-    activeIcon: "/icons/edit-active.svg",
+    linkName: "Таймеры",
+    icon: "/images/timers/stopwatch.png",
+    activeIcon: "/images/timers/stopwatch.png",
     name: "timers-list",
   });
 
@@ -51,7 +51,7 @@ initMenuItemsList();
     <ul class="container flex flex-nowrap items-center justify-between overflow-x-scroll no-scrollbar pt-[10px]">
       <li v-for="(iter, index) in meniItems" :key="index" class="relative mr-[6px] last:mr-0">
         <router-link :to="{ name: iter.name, params: iter.params }" class="flex w-full flex-col items-center">
-          <img height="24" width="24" alt=" " class="size-[24px]" :src="isMenuItemActive(iter) ? iter.activeIcon : iter.icon" />
+          <img height="26" width="26" alt=" " class="size-[26px]" :src="isMenuItemActive(iter) ? iter.activeIcon : iter.icon" />
           <span class="mt-[4px] whitespace-nowrap text-center text-11" :class="[isMenuItemActive(iter) ? 'font-semibold text-primary' : '']"
             >{{ iter.linkName }}
           </span>

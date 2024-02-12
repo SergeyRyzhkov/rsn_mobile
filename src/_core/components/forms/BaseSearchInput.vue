@@ -29,6 +29,6 @@ watchEffect(() => {
       @input="onInput"
     />
     <span class="after:content-['\00d7'] absolute right-[12px] text-24 text-[#848484]" @click="clear()"></span>
-    <img src="/icons/search.svg" width="20" height="20" class="left-[12px] absolute top-1/2 h-[20px] w-[20px] -translate-y-1/2" alt=" " />
+    <img src="/icons/search.svg" width="20" height="20" class="left-[12px] absolute top-1/2 size-[20px] -translate-y-1/2" alt=" " />
   </div>
 </template>

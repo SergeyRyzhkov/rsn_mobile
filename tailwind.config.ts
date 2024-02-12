@@ -59,11 +59,12 @@ export default {
       warning: "var(--red)",
       gray: "var(--gray)",
       "light-gray": "var(--light-gray)",
+      "page-bg": "var(--page-bg)",
     },
 
     extend: {
       spacing: {
-        "safe-top": "calc(10px + env(safe-area-inset-top))",
+        "safe-top": "calc(12px + env(safe-area-inset-top))",
         "safe-bottom": "env(safe-area-inset-bottom)",
         "safe-left": "env(safe-area-inset-left)",
         "safe-right": "env(safe-area-inset-right)",

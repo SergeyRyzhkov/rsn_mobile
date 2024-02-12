@@ -51,7 +51,7 @@ export class BaseRestApiService extends BaseService {
     ctor: { new (): T },
     url: string,
     params?: any,
-    pagination?: PaginationModel
+    pagination?: PaginationModel,
   ): Promise<DataWithPagination<T>> {
     return await this.getArrayOrEmptyWithPaginationAny(ctor, url, params, pagination, false);
   }
@@ -61,7 +61,7 @@ export class BaseRestApiService extends BaseService {
     url: string,
     params?: any,
     postData?: any,
-    pagination?: PaginationModel
+    pagination?: PaginationModel,
   ): Promise<DataWithPagination<T>> {
     return await this.getArrayOrEmptyWithPaginationAny(ctor, url, params, pagination, true, postData);
   }
@@ -122,7 +122,7 @@ export class BaseRestApiService extends BaseService {
     Ctor: { new (): T },
     url: string,
     config?: any,
-    postData?: any
+    postData?: any,
   ): Promise<T> {
     try {
       const response = await this.apiRequest.post(url, postData, config);
@@ -144,7 +144,7 @@ export class BaseRestApiService extends BaseService {
     config?: any,
     pagination?: PaginationModel,
     isPostMethod = false,
-    postData?: any
+    postData?: any,
   ): Promise<DataWithPagination<T>> {
     const paginCollection = new DataWithPagination<T>();
 

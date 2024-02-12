@@ -5,6 +5,7 @@ $gray: #b0b0b0;
 $light-gray: #e8eaf6;
 $red: #fe5353;
 $font-famaly: "Open Sans", sans-serif;
+$page-bg: #f5f9fc;
 
 :root {
   --text-color: #{$text-color};
@@ -13,4 +14,5 @@ $font-famaly: "Open Sans", sans-serif;
   --gray: #{$gray};
   --light-gray: #{$light-gray};
   --red: #{$red};
+  --page-bg: #{$page-bg};
 }

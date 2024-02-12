@@ -1,3 +1,4 @@
+import { createAxiosInstance } from "./axiosBuilder";
 import "@/assets/styles/index.scss";
 import App from "@/App.vue";
 import { createApp } from "vue";
@@ -11,7 +12,10 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import { SplashScreen } from "@capacitor/splash-screen";
 import VueTelInput from "vue-tel-input";
 import "vue-tel-input/vue-tel-input.css";
-import { App as mobileApp } from "@capacitor/app";
+import { ServiceLocator } from "./_core/service/ServiceLocator";
+
+const axios = createAxiosInstance(false);
+ServiceLocator.instance.updateAxios(axios);
 
 const app = createApp(App);
 
@@ -27,10 +31,6 @@ app.use(VueTelInput);
 const router = createAppRouter();
 app.use(router);
 
-try {
-  app.mount("#app");
-} catch (err) {
-  mobileApp.exitApp();
-}
+app.mount("#app");
 
 SplashScreen.hide();
