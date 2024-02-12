@@ -1,4 +1,4 @@
-package pilki.tech.aggregator.client;
+package ryzhkov.home;
 
 import com.getcapacitor.BridgeActivity;
 import android.os.Bundle;
