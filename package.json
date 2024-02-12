@@ -40,7 +40,8 @@
     "vue-advanced-cropper": "^2.8.3",
     "vue-router": "^4.2.5",
     "vue-tel-input": "^8.1.4",
-    "vue-yandex-maps": "^0.12.7"
+    "vue-yandex-maps": "^0.12.7",
+    "capacitor-appmetrica-plugin": "^3.0.1"
   },
   "devDependencies": {
     "@babel/plugin-transform-optional-chaining": "^7.22.5",

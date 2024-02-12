@@ -2,41 +2,31 @@
 import BasePage from "@/layouts/components/BasePage.vue";
 import StartPageHeader from "../components/StartPageHeader.vue";
 import BaseButton from "@/_core/components/forms/BaseButton.vue";
-import { SpeechRecognition } from "@capacitor-community/speech-recognition";
-import { useSpeechRecognition } from "@vueuse/core";
-import { ref } from "vue";
+import { computed, nextTick, ref, toValue } from "vue";
 import MainActionButton from "../components/MainActionButton.vue";
+import { useSpeechRec } from "@/_core/composables/useSpeechRec";
 
 const result2 = ref("");
-const result1 = ref("");
 
-const { result, start } = useSpeechRecognition({
-  lang: "en-US",
-  interimResults: true,
-  continuous: true,
-});
+const { start, stop, result } = useSpeechRec();
 
-const testVoice = async () => {
-  await SpeechRecognition.requestPermissions();
-  await SpeechRecognition.start({
-    language: "ru-RU",
-    maxResults: 5,
-    partialResults: true,
-    popup: false,
-  });
-  // listen to partial results
-  SpeechRecognition.addListener("partialResults", (data: any) => {
-    result.value = data.matches || data.data.value || data.data.matches;
-  });
+const startRecognition = () => {
+  start();
 };
 
-const testVoice2 = () => {
-  //@ts-ignore
-  alert(window.SpeechRecognition);
-  //@ts-ignore
-  alert(window.webkitSpeechRecognition);
+const stopRecognition = async () => {
+  stop();
 
-  start();
+  const synth = window.speechSynthesis;
+  const utterThis = new SpeechSynthesisUtterance("Проверка воспроизведения текста");
+  utterThis.lang = "ru-RU";
+  utterThis.rate = 0.85;
+  utterThis.volume = 1;
+  //0 45 63
+  utterThis.voice = synth.getVoices()[0];
+  synth.speak(utterThis);
+
+  console.log(synth.getVoices());
 };
 </script>
 
@@ -88,15 +78,12 @@ const testVoice2 = () => {
         </section>
         <section class="flex flex-col mt-[60px]">
           <img src="/images/main_page.png" alt=" " class="mt-auto overflow-hidden object-cover" />
-          <BaseButton class="mt-[40px]" @click="testVoice">Test</BaseButton>
-          <BaseButton class="mt-[30px]" @click="testVoice2">Test1</BaseButton>
+          <BaseButton class="mt-[30px]" @click="startRecognition">Записать</BaseButton>
+          <BaseButton class="mt-[10px]" @click="stopRecognition">Остановить</BaseButton>
         </section>
-
-        <div class="mt-[30px]">
+        <div class="mt-[10px]">
           {{ result }}
         </div>
-        <div class="mt-[30px]"></div>
-        {{ result1 }}
       </div>
     </template>
   </BasePage>
