@@ -4,14 +4,14 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "ryzhkov.customer.app",
+  "applicationId": "ryzhkov.ro.app",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 44,
+      "versionCode": 45,
       "versionName": "0.0.2",
       "outputFile": "app-release.apk"
     }

@@ -2,22 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>746043454303-41ir0ur23h05rascn74mdkqigf7902vt.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.746043454303-41ir0ur23h05rascn74mdkqigf7902vt</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCYApU0YTfgMh9n5C9NLq8Jg-FYrXvLi0Y</string>
+	<string>AIzaSyAKJJxGwm2fGzmmzBlOV-03WFrNRIFIBp4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>746043454303</string>
+	<string>897494097867</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>tech.pilki.aggregator.client</string>
+	<string>ryzhkov.ro.app</string>
 	<key>PROJECT_ID</key>
-	<string>aggregator-client</string>
+	<string>rsn-ro</string>
 	<key>STORAGE_BUCKET</key>
-	<string>aggregator-client.appspot.com</string>
+	<string>rsn-ro.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:746043454303:ios:4151c83e52165347fa3cea</string>
-	<key>DATABASE_URL</key>
-	<string>https://aggregator-client.firebaseio.com</string>
+	<string>1:897494097867:ios:b746866c789f70f6e3204e</string>
 </dict>
 </plist>

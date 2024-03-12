@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Рыжков</string>
-    <string name="title_activity_main">Рыжков</string>
-    <string name="package_name">ryzhkov.customer.app</string>
-    <string name="custom_url_scheme">ryzhkov.customer.app</string>
+    <string name="app_name">Шмель</string>
+    <string name="title_activity_main">Шмель</string>
+    <string name="package_name">ryzhkov.ro.app</string>
+    <string name="custom_url_scheme">ryzhkov.ro.app</string>
 </resources>
