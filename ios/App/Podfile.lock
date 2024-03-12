@@ -9,6 +9,8 @@ PODS:
   - CapacitorCordova (5.7.2)
   - CapacitorDevice (5.0.7):
     - Capacitor
+  - CapacitorFilesystem (5.2.1):
+    - Capacitor
   - CapacitorFirebaseStorage (5.4.1):
     - Capacitor
     - FirebaseStorage (~> 10.8)
@@ -98,6 +100,7 @@ DEPENDENCIES:
   - CapacitorAppmetricaPlugin (from `../../node_modules/capacitor-appmetrica-plugin`)
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorDevice (from `../../node_modules/@capacitor/device`)"
+  - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
   - "CapacitorFirebaseStorage (from `../../node_modules/@capacitor-firebase/storage`)"
   - "CapacitorPreferences (from `../../node_modules/@capacitor/preferences`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
@@ -134,6 +137,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorDevice:
     :path: "../../node_modules/@capacitor/device"
+  CapacitorFilesystem:
+    :path: "../../node_modules/@capacitor/filesystem"
   CapacitorFirebaseStorage:
     :path: "../../node_modules/@capacitor-firebase/storage"
   CapacitorPreferences:
@@ -151,6 +156,7 @@ SPEC CHECKSUMS:
   CapacitorAppmetricaPlugin: a9a170c81d193a3173891b2affb9e569be8e186f
   CapacitorCordova: 70b13b8fddb6f35d8adcfe06cb5045c07f35f6de
   CapacitorDevice: fc91bdb484dc0e70755e9b621cd557afe642613a
+  CapacitorFilesystem: 9f3e3c7fea2fff12f46dd5b07a2914f2103e4cfc
   CapacitorFirebaseStorage: 24c87683a4c9418d8366694186589910deafd330
   CapacitorPreferences: 77ac427e98db83bace772455f8ba447430382c4c
   CapacitorSplashScreen: dd3de3f3644710fa2a697cfb91ec262eece4d242
@@ -172,6 +178,6 @@ SPEC CHECKSUMS:
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   YandexMobileMetrica: f5368ee93f286c793d73b58da00929babfc897c1
 
-PODFILE CHECKSUM: 3941588a8292a14c61b4026e79d18fcbadbe9ee3
+PODFILE CHECKSUM: 081fb0a59a38f29846ea30e64aa529ffc05e9707
 
 COCOAPODS: 1.15.2
