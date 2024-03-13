@@ -18,19 +18,13 @@ const props = withDefaults(
 
 const emits = defineEmits(["update:modelValue"]);
 
-const AVAILABLE_COUNTRIES = ["RU"];
-
-enum CurrentIso {
-  RU = "RU",
-}
+const AVAILABLE_COUNTRIES = ["BY", "UZ", "RU"];
 
 interface CountryChangeParam {
-  iso2: keyof typeof CurrentIso;
   dialCode: string;
   name: string;
 }
 
-const currentIso = ref<keyof typeof CurrentIso | null>(null);
 const isPhoneValid = ref(false);
 
 const validatePhone = (data) => {
@@ -40,7 +34,7 @@ const validatePhone = (data) => {
 };
 
 const countryChanged = (data: CountryChangeParam) => {
-  currentIso.value = data.iso2;
+  emits("update:modelValue", `+${data.dialCode}`);
 };
 
 const tryEmitUpdateModel = (newValue: string) => {
@@ -63,7 +57,7 @@ watchEffect(() => {
       default-country="RU"
       :class="!isPhoneValid ? 'has_error' : ''"
       mode="international"
-      :all-countries="[{ name: 'Россия', iso2: 'RU', dialCode: '7' }]"
+      :valid-characters-only="true"
       :input-options="{
         placeholder: placeholder,
       }"

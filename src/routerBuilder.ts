@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, NavigationGuardNext, RouteLocationNormalized, Router } from "vue-router";
+import { createRouter, createWebHistory, Router } from "vue-router";
 
 let router: Router;
 
@@ -25,6 +25,12 @@ const createAppRouter = () => {
         name: "timers-list",
         path: "/timers-list",
         component: () => import("@/modules/timers/pages/TimersList.vue"),
+      },
+
+      {
+        name: "meteo-list",
+        path: "/meteo-list",
+        component: () => import("@/modules/meteo/pages/MeteoList.vue"),
       },
 
       {

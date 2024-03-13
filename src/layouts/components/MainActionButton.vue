@@ -23,7 +23,7 @@ const onClick = (navigate) => {
         @click="onClick(navigate)"
       >
         <div class="bar-action-button rounded-full flex justify-center items-center size-[64px]">
-          <img :src="imgSrc" class="max-h-[50px] h-[50px]" />
+          <img :src="imgSrc" class="max-h-[44px] h-[44px]" />
         </div>
       </div>
       <span v-if="!!title" class="text-13 mt-[2px] mx-auto">{{ title }}</span>

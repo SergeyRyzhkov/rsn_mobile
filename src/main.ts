@@ -35,7 +35,7 @@ app.use(router);
 app.mount("#app");
 
 try {
-  await AppMetrica.activate({
+  AppMetrica.activate({
     apiKey: "e5e4707e-fb3b-408b-bd01-f3ffa05b61a0",
     logs: true,
   });

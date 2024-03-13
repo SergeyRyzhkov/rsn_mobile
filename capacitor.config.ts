@@ -1,18 +1,18 @@
 import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appName: "Рыжков",
-  appId: "ryzhkov.customer.app",
+  appName: "Шмель",
+  appId: "ryzhkov.ro.app",
   webDir: "dist",
   server: {
     iosScheme: "ionic",
     androidScheme: "http",
   },
 
-  android: {
-    minWebViewVersion: 55,
-    minHuaweiWebViewVersion: 8,
-  },
+  // android: {
+  //   minWebViewVersion: 55,
+  //   minHuaweiWebViewVersion: 8,
+  // },
 
   plugins: {
     PushNotifications: {
@@ -20,18 +20,18 @@ const config: CapacitorConfig = {
     },
 
     SplashScreen: {
-      showDuration: 2000,
-      autoHide: true,
+      launchShowDuration: 2000,
+      launchAutoHide: true,
       showSpinner: false,
       androidScaleType: "CENTER_CROP",
+      backgroundColor: "#ffffffff",
       splashFullScreen: true,
-      splashImmersive: false,
-      backgroundColor: "#f5f9fc",
+      useDialog: false,
     },
   },
-  ios: {
-    cordovaLinkerFlags: ["-ObjC"],
-  },
+  // ios: {
+  //   cordovaLinkerFlags: ["-ObjC"],
+  // },
 };
 
 export default config;

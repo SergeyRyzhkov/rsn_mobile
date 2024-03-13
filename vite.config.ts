@@ -4,6 +4,29 @@ import vue from "@vitejs/plugin-vue";
 import path from "path";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 
+// const externals = [
+//   "react",
+//   "firebase",
+//   "firebase/app",
+//   "firebase/firestore",
+//   "firebase/firestore/lite",
+//   "firebase/auth",
+//   "firebase/functions",
+//   "firebase/storage",
+//   "firebase/database",
+//   "firebase/remote-config",
+//   "firebase/performance",
+//   "@firebase/app",
+//   "@firebase/firestore",
+//   "@firebase/firestore/lite",
+//   "@firebase/auth",
+//   "@firebase/functions",
+//   "@firebase/storage",
+//   "@firebase/database",
+//   "@firebase/remote-config",
+//   "@firebase/performance",
+// ];
+
 export default ({ mode }) => {
   return defineConfig({
     plugins: [vue(), ViteImageOptimizer()],
@@ -18,16 +41,13 @@ export default ({ mode }) => {
       },
     },
 
-    server: {
-      // host: "0.0.0.0",
-      // port: 3000,
-    },
-
     build: {
-      // target: "esnext",
       outDir: path.resolve(__dirname, "dist"),
       emptyOutDir: true,
-      sourcemap: true,
+      // sourcemap: true,
+      // rollupOptions: {
+      //   external: externals,
+      // },
     },
 
     css: {

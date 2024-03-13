@@ -7,11 +7,12 @@ const onBack = () => {
 };
 </script>
 <template>
-  <header class="z-[99999] page-header">
-    <div class="flex items-center justify-between container">
-      <button class="flex items-center" @click="onBack()">
-        <img src="/icons/back_white.svg" width="20" height="20" alt=" " class="h-[20px] w-auto" />
+  <header class="page-header">
+    <div class="flex items-center container">
+      <button class="flex items-center mr-[22px]" @click="onBack()">
+        <img src="/icons/back_white.svg" width="24" height="24" alt=" " class="h-[24px] w-auto" />
       </button>
+      <slot></slot>
     </div>
   </header>
 </template>

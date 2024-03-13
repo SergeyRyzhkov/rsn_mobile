@@ -150,5 +150,18 @@ hr {
 }
 
 .page-header {
-  @apply z-[99999] sticky pt-safe-top top-0 bg-primary pb-[12px];
+  z-index: 99999;
+  position: sticky;
+  top: 0px;
+  background-color: $primary;
+  padding-bottom: 12px;
+  padding-top: calc(12px + env(safe-area-inset-top));
+}
+
+.card-wrapper {
+  box-shadow: 0px 4px 30px 0px #1932821a;
+  border: 1px solid #e8eaf6;
+  background-color: white;
+  padding: 12px;
+  border-radius: 12px;
 }

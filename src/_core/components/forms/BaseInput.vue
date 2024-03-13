@@ -126,7 +126,7 @@ defineExpose({ maskFiled });
         ...{ class: [currentClasses, 'base-input__input', classes] },
         ...{ placeholder: '' },
       }"
-      :class="['!px-[0px] !pt-[24px] !pb-[4px]']"
+      :class="['resize-none overflow-hidden !px-[0px] !pb-[4px] !pt-[24px]']"
       @keydown.enter.stop
       @keyup.enter.stop
       @input="
@@ -171,7 +171,7 @@ defineExpose({ maskFiled });
     <label
       v-if="!!labelText && showLabelInTextarea"
       class="base-input__label"
-      :class="[isMaskFill ? '!top-[6px] !left-[0px] !text-[12px]' : '']"
+      :class="[isMaskFill ? '!left-[0px] !top-[6px] !text-[12px]' : '']"
       @click.stop="
         {
           if (!!maskFiled) maskFiled.focus();
@@ -183,7 +183,7 @@ defineExpose({ maskFiled });
     <a
       v-if="type === 'password'"
       href="#"
-      class="z-100 absolute top-[50%] right-0 translate-y-[-50%]"
+      class="z-100 absolute right-0 top-[50%] translate-y-[-50%]"
       @click.prevent="showPassword = !showPassword"
     >
       <img v-show="showPassword" src="/icons/eye-open.svg" width="28" height="28" />
@@ -206,11 +206,6 @@ defineExpose({ maskFiled });
 .base-input {
   position: relative;
   width: 100%;
-  background-color: white;
-  // padding: 2px;
-  // border-radius: 4px;
-  // border-width: 1px;
-  // border-color: #484848;
 
   &__wrap {
     position: relative;
@@ -227,11 +222,11 @@ defineExpose({ maskFiled });
     box-sizing: border-box;
     width: 100%;
     outline: none;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 20px;
     padding-bottom: 14px;
     padding-top: 17px;
-    border-radius: 0px;
+    // border-radius: 4px;
     border-bottom: 1px solid #c4ccd0;
 
     &:hover {

@@ -1,88 +1,57 @@
 <script setup lang="ts">
 import BasePage from "@/layouts/components/BasePage.vue";
-import StartPageHeader from "../components/StartPageHeader.vue";
+import TheTopMenu from "@/layouts/components/TheTopMenu.vue";
+import TheBottomActions from "@/layouts/components/TheBottomActions.vue";
 import BaseButton from "@/_core/components/forms/BaseButton.vue";
-import { computed, nextTick, ref, toValue } from "vue";
-import MainActionButton from "../components/MainActionButton.vue";
-import { useSpeechRec } from "@/_core/composables/useSpeechRec";
+import { FirebaseStorage } from "@/modules/_test/FirebaseStorage";
+import { useCamera } from "@/modules/_test/useCamera";
 
-const result2 = ref("");
+const camera = useCamera();
+const fireBaseStorage = new FirebaseStorage();
 
-const { start, stop, result } = useSpeechRec();
-
-const startRecognition = () => {
-  start();
+const testPilki = (url: string) => {
+  window.open(url, "_system", "location=yes");
 };
 
-const stopRecognition = async () => {
-  stop();
+const listFiles = async () => {
+  // console.log(await fireBaseStorage.listFiles({ path: "images" }));
+  // console.log(await fireBaseStorage.getFolderSize("images"));
+  console.log(await fireBaseStorage.getBasketSize());
+};
 
-  const synth = window.speechSynthesis;
-  const utterThis = new SpeechSynthesisUtterance("Проверка воспроизведения текста");
-  utterThis.lang = "ru-RU";
-  utterThis.rate = 0.85;
-  utterThis.volume = 1;
-  //0 45 63
-  utterThis.voice = synth.getVoices()[0];
-  synth.speak(utterThis);
-
-  console.log(synth.getVoices());
+const openCamera = async () => {
+  const blob = await camera.getPhoto();
+  if (!!blob) {
+    fireBaseStorage.uploadFile("images/test1.jpeg", blob);
+  }
 };
 </script>
 
 <template>
   <BasePage class="bg-page-bg">
     <template #header>
-      <StartPageHeader></StartPageHeader>
+      <header class="page-header">
+        <div class="flex items-center justify-between container text-white font-medium">
+          Тут будет описание, <br />
+          текущая погода <br />
+          быстрые контакты <br />
+          и проча хрень
+        </div>
+      </header>
     </template>
     <template #content>
-      <div class="flex flex-col grow container mb-[60px] mt-[20px]">
-        <section class="flex flex-nowrap overflow-x-auto no-scrollbar mx-[-16px] px-[16px]">
-          <MainActionButton
-            title="Таймеры"
-            img-src="/images/timers/timer_main.png"
-            :route-props="{ name: 'timers-list' }"
-          ></MainActionButton>
-
-          <MainActionButton
-            title="Погода"
-            img-src="/images/weather/weather_main.png"
-            bg-color="#b846c5"
-            :route-props="{ name: 'timers-list' }"
-            class="ml-[12px]"
-          ></MainActionButton>
-
-          <MainActionButton
-            title="Погода"
-            img-src="/images/weather/weather_main.png"
-            bg-color="#00acef"
-            :route-props="{ name: 'timers-list' }"
-            class="ml-[12px]"
-          ></MainActionButton>
-
-          <MainActionButton
-            title="Погода"
-            img-src="/images/weather/weather_main.png"
-            bg-color="#7256b6"
-            :route-props="{ name: 'timers-list' }"
-            class="ml-[12px]"
-          ></MainActionButton>
-
-          <MainActionButton
-            title="Погода"
-            img-src="/images/weather/weather_main.png"
-            bg-color="#94a1fd"
-            :route-props="{ name: 'timers-list' }"
-            class="ml-[12px]"
-          ></MainActionButton>
+      <div class="flex flex-col grow mb-[16px] mt-[20px]">
+        <div class="container">
+          <!-- <TheTopMenu></TheTopMenu> -->
+        </div>
+        <section class="flex flex-col my-auto relative max-h-[50vh] h-[50vh]">
+          <img src="/images/main_page.png" alt=" " class="object-contain z-40 h-full" />
         </section>
-        <section class="flex flex-col mt-[60px]">
-          <img src="/images/main_page.png" alt=" " class="mt-auto overflow-hidden object-cover" />
-          <BaseButton class="mt-[30px]" @click="startRecognition">Записать</BaseButton>
-          <BaseButton class="mt-[10px]" @click="stopRecognition">Остановить</BaseButton>
-        </section>
-        <div class="mt-[10px]">
-          {{ result }}
+
+        <div class="container">
+          <BaseButton class="mt-[32px]" @click="listFiles">listFiles</BaseButton>
+          <BaseButton class="mt-[32px]" @click="openCamera">openCamera</BaseButton>
+          <!-- <TheBottomActions></TheBottomActions> -->
         </div>
       </div>
     </template>
