@@ -30,21 +30,21 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Доступ к календарю необходим для создания уведомлений о предстоящем посещении .</string>
+	<string>Доступ к календарю необходим для создания уведомлений о предстоящем событии.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Need to send sending photos in the feedback</string>
 	<key>NSContactsUsageDescription</key>
 	<string>$CONTACTS_USAGE_DESCRIPTION</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Ваша геопозиция используется для определения ближайшей .</string>
+	<string>Ваша геопозиция используется для определения местоположения камеры.</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Ваша геопозиция используется для определения ближайшей .</string>
+	<string>Ваша геопозиция используется для определения местоположения камеры.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Ваша геопозиция используется для определения ближайшей .</string>
+	<string>Ваша геопозиция используется для определения местоположения камеры.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Need to send sending images in the feedback</string>
 	<key>SLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Ваша геопозиция используется для определения ближайшей .</string>
+	<string>Ваша геопозиция используется для определения местоположения камеры.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
