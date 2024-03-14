@@ -1,4 +1,4 @@
-package ryzhkov.home;
+package ryzhkov.ro.app;
 
 import com.getcapacitor.BridgeActivity;
 import android.os.Bundle;

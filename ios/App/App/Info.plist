@@ -61,5 +61,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+     <key>NSCameraUsageDescription</key>
+	<string>Доступ к камере для получения фото к событию</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Доступ к галереии для получения фото к событию</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+	<string>Доступ к галереии для получения фото к событию</string>
 </dict>
 </plist>
