@@ -3,10 +3,13 @@ import BasePage from "@/layouts/components/BasePage.vue";
 import TheTopMenu from "@/layouts/components/TheTopMenu.vue";
 import TheBottomActions from "@/layouts/components/TheBottomActions.vue";
 import BaseButton from "@/_core/components/forms/BaseButton.vue";
-import { FirebaseStorage } from "@/modules/_test/FirebaseStorage";
-import { useCamera } from "@/modules/_test/useCamera";
+import { FirebaseStorage } from "@/modules/firebase/FirebaseStorage";
+import { useCamera } from "@/modules/capacitor/useCamera";
+import { useGeolocation } from "@/modules/capacitor/useGeolocation";
 
 const camera = useCamera();
+const geolocation = useGeolocation();
+
 const fireBaseStorage = new FirebaseStorage();
 
 const testPilki = (url: string) => {
@@ -42,6 +45,7 @@ const openCamera = async () => {
     <template #content>
       <div class="flex flex-col grow mb-[16px] mt-[20px]">
         <div class="container">
+          {{ geolocation.currentPostion.value.timestamp }}
           <!-- <TheTopMenu></TheTopMenu> -->
         </div>
         <section class="flex flex-col my-auto relative max-h-[50vh] h-[50vh]">
@@ -57,3 +61,4 @@ const openCamera = async () => {
     </template>
   </BasePage>
 </template>
+@/modules/capacitor/useCamera
