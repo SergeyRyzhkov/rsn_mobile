@@ -22,9 +22,9 @@ const createAppRouter = () => {
       },
 
       {
-        name: "timers-list",
-        path: "/timers-list",
-        component: () => import("@/modules/timers/pages/TimersList.vue"),
+        name: "map",
+        path: "/map",
+        component: () => import("@/modules/maps/pages/MapPage.vue"),
       },
 
       {

@@ -1,6 +1,5 @@
 import { Geolocation, Position } from "@capacitor/geolocation";
-import { Capacitor } from "@capacitor/core";
-import { ref } from "vue";
+import { onUnmounted, ref } from "vue";
 
 export type GeoPosition = {
   timestamp: number;
@@ -29,7 +28,8 @@ const checkAppPermissions = async () => {
 
 export const useGeolocation = (
   options: PositionOptions = { enableHighAccuracy: true, maximumAge: 1000, timeout: 10000 },
-  autoStart = true,
+  autoStart = false,
+  stopWatchOnDestroy = true,
 ) => {
   const currentPostion = ref<Partial<GeoPosition>>({});
 
@@ -43,23 +43,23 @@ export const useGeolocation = (
   };
 
   const startWatchPosition = async () => {
+    stopWatchPosition();
+    updateGeoPosition();
     timerId = setInterval(() => updateGeoPosition(), options.timeout);
   };
 
   const stopWatchPosition = () => {
-    clearInterval(timerId);
+    if (!!timerId) {
+      clearInterval(timerId);
+    }
   };
 
   const onPositionChanged = (position: Position | null, err?: any) => {
-    if (!!currentPostion.value) {
+    if (!!position && !!err) {
       currentPostion.value.valid = false;
     }
 
-    if (!!currentPostion.value && !!err) {
-      currentPostion.value.valid = false;
-    }
-
-    if (!!position) {
+    if (!!position && !err) {
       currentPostion.value.coords = position.coords;
       currentPostion.value.timestamp = position.timestamp;
       currentPostion.value.valid = true;
@@ -70,6 +70,12 @@ export const useGeolocation = (
     updateGeoPosition();
     startWatchPosition();
   }
+
+  onUnmounted(() => {
+    if (stopWatchOnDestroy) {
+      stopWatchPosition();
+    }
+  });
 
   return {
     currentPostion,

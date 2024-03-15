@@ -3,11 +3,31 @@ import { ymapMarker, yandexMap } from "vue-yandex-maps";
 import { MapMarkerModel } from "./MapMarkerModel";
 import { ref } from "vue";
 
-defineProps<{
-  settings: any;
-  markers?: MapMarkerModel<any>[];
-  current?: [number, number];
-}>();
+const props = withDefaults(
+  defineProps<{
+    settings: any;
+    markers?: MapMarkerModel<any>[];
+    current?: [number, number];
+    dragEnableOnMobile?: boolean;
+    geolocationEnabled?: boolean;
+    searchControlEnabled?: boolean;
+    trafficControl?: boolean;
+    fullscreenControlEnabled?: boolean;
+    zoomControlEnabled?: boolean;
+    rulerControl?: boolean;
+    gray?: boolean;
+  }>(),
+  {
+    geolocationEnabled: false,
+    searchControlEnabled: false,
+    trafficControl: false,
+    fullscreenControlEnabled: false,
+    zoomControlEnabled: false,
+    rulerControl: false,
+    dragEnableOnMobile: false,
+    gray: false,
+  },
+);
 const emits = defineEmits(["on-marker-click", "on-current-click", "on-init"]);
 
 const ymap = ref(null);
@@ -15,12 +35,39 @@ const ymap = ref(null);
 const TABLET_SIZE = 760;
 
 const mapWasInit = (map) => {
-  //@ts-ignore
-  document.getElementsByClassName("ymaps-2-1-79-ground-pane")[0].style["filter"] = "grayscale(100%)";
-  if (window.innerWidth < TABLET_SIZE) {
+  onMapInit(map);
+  emits("on-init", map);
+};
+
+const onMapInit = (map) => {
+  if (!!props.gray) {
+    //@ts-ignore
+    document.getElementsByClassName("ymaps-2-1-79-ground-pane")[0].style["filter"] = "grayscale(100%)";
+  }
+  if (!props.dragEnableOnMobile && window.innerWidth < TABLET_SIZE) {
     map.behaviors.disable(["drag"]);
   }
-  emits("on-init", map);
+  if (!props.geolocationEnabled) {
+    map.controls.remove("geolocationControl"); // удаляем геолокацию
+  }
+  if (!props.searchControlEnabled) {
+    map.controls.remove("searchControl"); // удаляем поиск
+  }
+  if (!props.geolocationEnabled) {
+    map.controls.remove("trafficControl"); // удаляем контроль трафика
+  }
+  if (!props.trafficControl) {
+    map.controls.remove("typeSelector"); // удаляем тип
+  }
+  if (!props.fullscreenControlEnabled) {
+    map.controls.remove("fullscreenControl"); // удаляем кнопку перехода в полноэкранный режим
+  }
+  if (!props.zoomControlEnabled) {
+    map.controls.remove("zoomControl"); // удаляем контрол зуммирования
+  }
+  if (!props.rulerControl) {
+    map.controls.remove("rulerControl"); // удаляем контрол правил
+  }
 };
 </script>
 
@@ -55,3 +102,12 @@ const mapWasInit = (map) => {
     />
   </yandex-map>
 </template>
+
+<style lang="scss">
+.ymaps-2-1-79-map-copyrights-promo {
+  display: none !important;
+}
+.ymaps-2-1-79-copyrights-pane {
+  display: none !important;
+}
+</style>

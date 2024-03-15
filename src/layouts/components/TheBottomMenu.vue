@@ -22,7 +22,7 @@ const initMenuItemsList = () => {
     linkName: "Таймеры",
     icon: "/images/timers/stopwatch.png",
     activeIcon: "/images/timers/stopwatch.png",
-    name: "timers-list",
+    name: "map",
   });
 
   meniItems.value.push({
