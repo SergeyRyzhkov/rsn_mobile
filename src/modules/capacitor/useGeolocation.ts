@@ -1,29 +1,38 @@
 import { Geolocation, Position } from "@capacitor/geolocation";
 import { onUnmounted, ref } from "vue";
 
-export type GeoPosition = {
-  timestamp: number;
+export interface GeoPosition {
+  timestamp?: number;
   coords: {
-    latitude: number;
-    longitude: number;
-    accuracy: number;
-    altitudeAccuracy: number | null | undefined;
-    altitude: number | null;
-    speed: number | null;
-    heading: number | null;
+    latitude?: number;
+    longitude?: number;
+    accuracy?: number;
+    altitudeAccuracy?: number | null | undefined;
+    altitude?: number | null;
+    speed?: number | null;
+    heading?: number | null;
   };
   valid?: boolean;
-};
+}
 
-const checkAppPermissions = async () => {
+const checkAppPermissions = async (isFineLocation: boolean) => {
   const perm = await Geolocation.checkPermissions();
-  if (perm.location !== "granted" || perm.coarseLocation !== "granted") {
-    const reqPromt = await Geolocation.requestPermissions();
-    if (reqPromt.location !== "granted" || perm.coarseLocation !== "granted") {
-      return false;
+  if (!!isFineLocation) {
+    if (perm.location !== "granted") {
+      const reqPromt = await Geolocation.requestPermissions({ permissions: ["location"] });
+      return reqPromt.location === "granted";
     }
+    return true;
   }
-  return true;
+
+  if (!isFineLocation) {
+    if (perm.coarseLocation !== "granted") {
+      const reqPromt = await Geolocation.requestPermissions({ permissions: ["coarseLocation"] });
+      alert("isFineLocation" + reqPromt.coarseLocation);
+      return reqPromt.coarseLocation === "granted";
+    }
+    return true;
+  }
 };
 
 export const useGeolocation = (
@@ -31,14 +40,17 @@ export const useGeolocation = (
   autoStart = false,
   stopWatchOnDestroy = true,
 ) => {
-  const currentPostion = ref<Partial<GeoPosition>>({});
+  const currentPostion = ref<GeoPosition>({ coords: {} });
 
   let timerId;
 
   const updateGeoPosition = async () => {
-    if (!!(await checkAppPermissions())) {
-      const res = await Geolocation.getCurrentPosition(options);
-      onPositionChanged(res);
+    if (!!(await checkAppPermissions(options.enableHighAccuracy || true))) {
+      const position = await Geolocation.getCurrentPosition(options);
+      if (!!position) {
+        onPositionChanged(position);
+        return position;
+      }
     }
   };
 
@@ -55,12 +67,15 @@ export const useGeolocation = (
   };
 
   const onPositionChanged = (position: Position | null, err?: any) => {
-    if (!!position && !!err) {
+    if (!!err) {
       currentPostion.value.valid = false;
     }
 
     if (!!position && !err) {
-      currentPostion.value.coords = position.coords;
+      currentPostion.value.coords.latitude = position.coords.latitude;
+      currentPostion.value.coords.longitude = position.coords.longitude;
+      currentPostion.value.coords.accuracy = position.coords.accuracy;
+      currentPostion.value.coords.speed = position.coords.speed;
       currentPostion.value.timestamp = position.timestamp;
       currentPostion.value.valid = true;
     }
@@ -72,7 +87,7 @@ export const useGeolocation = (
   }
 
   onUnmounted(() => {
-    if (stopWatchOnDestroy) {
+    if (!!stopWatchOnDestroy) {
       stopWatchPosition();
     }
   });

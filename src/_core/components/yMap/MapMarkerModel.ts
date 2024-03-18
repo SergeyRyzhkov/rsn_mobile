@@ -1,9 +1,8 @@
 export class MapMarkerModel<TData> {
+  coords: [number, number];
   uuid?: string;
   iconHref?: string;
   title?: string;
-  latitude?: number;
-  longitude?: number;
   data?: TData;
-  imageSize = [38, 38];
+  imageSize? = [32, 32];
 }

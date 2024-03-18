@@ -9,6 +9,7 @@ import type {
 } from "firebase/storage";
 
 import {
+  getBlob,
   deleteObject,
   getDownloadURL,
   getMetadata,
@@ -143,6 +144,12 @@ export class FirebaseStorage {
       });
     }
     return uploadTask;
+  }
+
+  public getBlob(path: string) {
+    const storage = this.getAppStorage();
+    const storageRef = ref(storage, path);
+    return getBlob(storageRef);
   }
 
   public getBasketSize() {

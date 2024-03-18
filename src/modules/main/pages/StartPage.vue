@@ -5,6 +5,8 @@ import TheBottomActions from "@/layouts/components/TheBottomActions.vue";
 import BaseButton from "@/_core/components/forms/BaseButton.vue";
 import { FirebaseStorage } from "@/modules/firebase/FirebaseStorage";
 import { useCamera } from "@/modules/capacitor/useCamera";
+import { ServiceLocator } from "@/_core/service/ServiceLocator";
+import { AlarmEventService } from "@/modules/alarms/services/AlarmEventService";
 
 const camera = useCamera();
 // const geolocation = useGeolocation();
@@ -12,7 +14,7 @@ const camera = useCamera();
 const fireBaseStorage = new FirebaseStorage();
 
 const testPilki = (url: string) => {
-  window.open(url, "_system", "location=yes");
+  ServiceLocator.instance.getService(AlarmEventService).createEvent();
 };
 
 const listFiles = async () => {
@@ -53,6 +55,8 @@ const openCamera = async () => {
         <div class="container">
           <BaseButton class="mt-[32px]" @click="listFiles">listFiles</BaseButton>
           <BaseButton class="mt-[32px]" @click="openCamera">openCamera</BaseButton>
+          <BaseButton class="mt-[32px]" @click="testPilki">event</BaseButton>
+
           <!-- <TheBottomActions></TheBottomActions> -->
         </div>
       </div>

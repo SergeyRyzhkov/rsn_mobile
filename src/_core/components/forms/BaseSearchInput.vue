@@ -21,14 +21,14 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="relative flex items-center" @click="emit('on-focus')">
+  <div class="relative flex items-center py-[8px] px-[10px]" @click="emit('on-focus')">
+    <img src="/icons/search.svg" width="20" height="20" class="left-[12px] size-[20px]" alt=" " />
     <input
-      class="w-full rounded-full bg-[#f0f0f0] py-[8px] pl-[40px] pr-[26px] outline-none"
+      class="w-full ml-[10px] mr-[16px] outline-none bg-transparent"
       :value="curValue"
       :placeholder="placeholder || 'Поиск...'"
       @input="onInput"
     />
-    <span class="after:content-['\00d7'] absolute right-[12px] text-24 text-[#848484]" @click="clear()"></span>
-    <img src="/icons/search.svg" width="20" height="20" class="left-[12px] absolute top-1/2 size-[20px] -translate-y-1/2" alt=" " />
+    <span class="after:content-['\00d7'] text-24 text-[#848484]" @click="clear()"></span>
   </div>
 </template>

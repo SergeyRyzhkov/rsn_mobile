@@ -1,113 +1,132 @@
 <script setup lang="ts">
-import { ymapMarker, yandexMap } from "vue-yandex-maps";
+import { computed, onMounted, ref, shallowRef } from "vue";
+import type { YMap } from "@yandex/ymaps3-types";
+import {
+  YandexMap,
+  YandexMapDefaultSatelliteLayer,
+  YandexMapDefaultSchemeLayer,
+  YandexMapDefaultFeaturesLayer,
+  createYmapsOptions,
+  YandexMapMarker,
+  YandexMapSphericalMercatorProjection,
+  YandexMapTileDataSource,
+  YandexMapLayer,
+} from "vue-yandex-maps";
+
+import type { YMapLayerProps, YMapTileDataSourceProps } from "@yandex/ymaps3-types";
+
 import { MapMarkerModel } from "./MapMarkerModel";
-import { ref } from "vue";
+
+const TABLET_SIZE = 760;
+
+const map = shallowRef<null | YMap>(null);
 
 const props = withDefaults(
   defineProps<{
+    apiKey: string;
     settings: any;
+    currentPosition?: [number, number];
     markers?: MapMarkerModel<any>[];
-    current?: [number, number];
     dragEnableOnMobile?: boolean;
-    geolocationEnabled?: boolean;
-    searchControlEnabled?: boolean;
-    trafficControl?: boolean;
-    fullscreenControlEnabled?: boolean;
-    zoomControlEnabled?: boolean;
-    rulerControl?: boolean;
     gray?: boolean;
+    mapType?: "standart" | "satellite" | "hybrid";
   }>(),
   {
-    geolocationEnabled: false,
-    searchControlEnabled: false,
-    trafficControl: false,
-    fullscreenControlEnabled: false,
-    zoomControlEnabled: false,
-    rulerControl: false,
     dragEnableOnMobile: false,
     gray: false,
+    mapType: "standart",
   },
 );
 const emits = defineEmits(["on-marker-click", "on-current-click", "on-init"]);
 
-const ymap = ref(null);
+const mapInitialized = ref(false);
+onMounted(() => {
+  createYmapsOptions({ apikey: props.apiKey });
+  mapInitialized.value = true;
+  onMapInit();
+});
 
-const TABLET_SIZE = 760;
+const mapFilterCss = computed(() => {
+  return props.gray ? "grayscale(100%)" : "";
+});
 
-const mapWasInit = (map) => {
-  onMapInit(map);
-  emits("on-init", map);
+const onMapInit = () => {
+  if (!props.dragEnableOnMobile && window.innerWidth < TABLET_SIZE) {
+    map.value?.behaviors["drag"].disable;
+  }
+  emits("on-init", map.value);
+  // map.value?.setMode.setType(props.mapType || "yandex#map");
 };
 
-const onMapInit = (map) => {
-  if (!!props.gray) {
-    //@ts-ignore
-    document.getElementsByClassName("ymaps-2-1-79-ground-pane")[0].style["filter"] = "grayscale(100%)";
-  }
-  if (!props.dragEnableOnMobile && window.innerWidth < TABLET_SIZE) {
-    map.behaviors.disable(["drag"]);
-  }
-  if (!props.geolocationEnabled) {
-    map.controls.remove("geolocationControl"); // удаляем геолокацию
-  }
-  if (!props.searchControlEnabled) {
-    map.controls.remove("searchControl"); // удаляем поиск
-  }
-  if (!props.geolocationEnabled) {
-    map.controls.remove("trafficControl"); // удаляем контроль трафика
-  }
-  if (!props.trafficControl) {
-    map.controls.remove("typeSelector"); // удаляем тип
-  }
-  if (!props.fullscreenControlEnabled) {
-    map.controls.remove("fullscreenControl"); // удаляем кнопку перехода в полноэкранный режим
-  }
-  if (!props.zoomControlEnabled) {
-    map.controls.remove("zoomControl"); // удаляем контрол зуммирования
-  }
-  if (!props.rulerControl) {
-    map.controls.remove("rulerControl"); // удаляем контрол правил
-  }
+const dataSourceProps: YMapTileDataSourceProps = {
+  id: "custom",
+  copyrights: ["© OpenStreetMap contributors"],
+  raster: {
+    type: "ground",
+    // fetchTile: "https://tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png",
+    // fetchTile: "https://tile1.maps.2gis.com/tiles?x={{x}}&y={{y}}&z={{z}}",
+    fetchTile: "https://mt3.google.com/vt/lyrs=s&x={{x}}&y={{y}}&z={{z}}",
+  },
+  zoomRange: { min: 0, max: 19 },
+  clampMapZoom: true,
+};
+
+const layerProps: YMapLayerProps = {
+  id: "customLayer",
+  source: "custom",
+  type: "ground",
+  options: {
+    raster: {
+      awaitAllTilesOnFirstDisplay: true,
+    },
+  },
 };
 </script>
 
 <template>
-  <yandex-map ref="ymap" :settings="settings" class="ymap" @map-was-initialized="mapWasInit">
-    <ymap-marker
-      v-if="!!current"
-      marker-id="current-position"
-      :icon="{
-        layout: 'default#image',
-        imageHref: '/icons/map-current.svg',
-        imageSize: [32, 32],
-        imageOffset: [0, 0],
-      }"
-      :coords="current"
-      @click="emits('on-current-click', current)"
-    />
+  <section>
+    <yandex-map v-if="!!mapInitialized" v-model="map" :settings="settings">
+      <yandex-map-default-scheme-layer v-if="mapType === 'standart'" />
+      <YandexMapDefaultSatelliteLayer v-if="mapType === 'satellite'" />
+      <yandex-map-default-features-layer />
 
-    <ymap-marker
-      v-for="m in markers"
-      :key="m.uuid"
-      :marker-id="m.uuid"
-      :icon="{
-        layout: 'default#image',
-        imageHref: m.iconHref,
-        imageSize: m.imageSize,
-        imageOffset: [0, 0],
-      }"
-      :coords="[m.latitude, m.longitude]"
-      :hint-content="m.title"
-      @click="emits('on-marker-click', m)"
-    />
-  </yandex-map>
+      <!-- <yandex-map-spherical-mercator-projection />
+      <yandex-map-tile-data-source :settings="dataSourceProps" />
+      <yandex-map-layer :settings="layerProps" />
+    -->
+      <template v-for="(marker, index) in markers" :key="index">
+        <yandex-map-marker
+          :settings="{ coordinates: marker.coords, hideOutsideViewport: true }"
+          position="top-center left-center"
+          @click="emits('on-marker-click', marker)"
+        >
+          <slot name="marker">
+            <img class="size-[32px min-w-[32px]" src="/icons/map-current.svg" />
+          </slot>
+        </yandex-map-marker>
+      </template>
+
+      <template v-if="!!currentPosition">
+        <yandex-map-marker
+          :settings="{ coordinates: currentPosition, hideOutsideViewport: true }"
+          position="top-center left-center"
+          @click="emits('on-current-click', currentPosition)"
+        >
+          <slot name="currentPosition">
+            <img class="size-[32px min-w-[32px]" src="/icons/map-current.svg" />
+          </slot>
+        </yandex-map-marker>
+      </template>
+    </yandex-map>
+  </section>
 </template>
 
 <style lang="scss">
-.ymaps-2-1-79-map-copyrights-promo {
+.ymaps3x0--map-copyrights {
   display: none !important;
 }
-.ymaps-2-1-79-copyrights-pane {
-  display: none !important;
+
+.ymaps3x0--main-engine-container {
+  filter: v-bind(mapFilterCss);
 }
 </style>

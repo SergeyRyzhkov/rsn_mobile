@@ -50,7 +50,7 @@
     "vue-router": "^4.2.5",
     "vue-tel-input": "^8.1.4",
     "vue-use-scroll-size-observer": "^1.0.4",
-    "vue-yandex-maps": "^0.12.7"
+    "vue-yandex-maps": "^2.0.1"
   },
   "devDependencies": {
     "@babel/plugin-transform-optional-chaining": "^7.22.5",
