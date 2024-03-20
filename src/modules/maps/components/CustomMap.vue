@@ -54,7 +54,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col grow size-full relative">
+  <section class="size-full relative">
     <BaseMap
       drag-enable-on-mobile
       api-key="26d989de-9503-4650-bc42-2bfad0128a78"
@@ -63,16 +63,16 @@ onUnmounted(() => {
       :current-position="currentYMPosition"
     ></BaseMap>
 
-    <AddressSearchInput class="absolute inset-[4px] z-[9999999999]"></AddressSearchInput>
+    <AddressSearchInput class="absolute top-[4px] inset-x-[4px] z-[9999999999]"></AddressSearchInput>
 
-    <div class="absolute right-[6px] top-[40%] flex flex-col">
+    <div class="absolute right-[6px] top-[40%] flex flex-col z-[9999999999]">
       <button class="map_zoom_button" @click="gotoToMyGeolocation(false)">MF</button>
       <button class="map_zoom_button mt-[8px]" @click="startWatchGeolocation">W</button>
       <button class="map_zoom_button mt-[50px]" @click="gotoToMyGeolocation(true)">
         <img src="/icons/map_navigate.svg" class="size-[18px]" />
       </button>
     </div>
-  </div>
+  </section>
 </template>
 
 <style lang="scss">

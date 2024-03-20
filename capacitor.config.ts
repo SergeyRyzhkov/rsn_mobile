@@ -7,12 +7,9 @@ const config: CapacitorConfig = {
   server: {
     iosScheme: "ionic",
     androidScheme: "http",
+    // url: "http://192.168.0.103:8100",
+    // cleartext: true,
   },
-
-  // android: {
-  //   minWebViewVersion: 55,
-  //   minHuaweiWebViewVersion: 8,
-  // },
 
   plugins: {
     PushNotifications: {
@@ -29,9 +26,11 @@ const config: CapacitorConfig = {
       useDialog: false,
     },
   },
-  // ios: {
-  //   cordovaLinkerFlags: ["-ObjC"],
-  // },
 };
+
+// if (!!config.server) {
+//   config.server.url = "http://192.168.0.103:8100";
+//   config.server.cleartext = true;
+// }
 
 export default config;

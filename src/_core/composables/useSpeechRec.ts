@@ -8,7 +8,14 @@ export const useSpeechRec = () => {
 
   const init = () => {
     //@ts-ignore
-    recognition = new window.webkitSpeechRecognition();
+    recognition = new (window.SpeechRecognition ||
+      //@ts-ignore
+      window.webkitSpeechRecognition ||
+      //@ts-ignore
+      window.mozSpeechRecognition ||
+      //@ts-ignore
+      window.msSpeechRecognition)();
+
     recognition.continuous = true;
     recognition.lang = "ru";
 

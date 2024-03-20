@@ -14,6 +14,7 @@ import VueTelInput from "vue-tel-input";
 import "vue-tel-input/vue-tel-input.css";
 import { ServiceLocator } from "./_core/service/ServiceLocator";
 import { AppMetrica } from "capacitor-appmetrica-plugin";
+import eruda from "eruda";
 
 const axios = createAxiosInstance(false);
 ServiceLocator.instance.updateAxios(axios);
@@ -33,6 +34,10 @@ const router = createAppRouter();
 app.use(router);
 
 app.mount("#app");
+
+eruda.init({
+  tool: ["console", "elements", "network", "resource", "sources"],
+});
 
 try {
   AppMetrica.activate({

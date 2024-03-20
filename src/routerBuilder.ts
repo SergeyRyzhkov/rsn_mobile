@@ -1,9 +1,7 @@
 import { createRouter, createWebHistory, Router } from "vue-router";
 
-let router: Router;
-
 const createAppRouter = () => {
-  router = createRouter({
+  return createRouter({
     history: createWebHistory(),
 
     scrollBehavior(_to, _from, savedPosition) {
@@ -40,13 +38,10 @@ const createAppRouter = () => {
       },
     ],
   });
-
-  return router;
 };
 
-export const gotoBack = () => {
+export const gotoBack = (router: Router) => {
   router.back();
 };
 
 export { createAppRouter };
-export { router };

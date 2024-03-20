@@ -1,6 +1,6 @@
 import { Geolocation, Position } from "@capacitor/geolocation";
 import { onUnmounted, ref } from "vue";
-
+import { Capacitor } from "@capacitor/core";
 export interface GeoPosition {
   timestamp?: number;
   coords: {
@@ -16,21 +16,24 @@ export interface GeoPosition {
 }
 
 const checkAppPermissions = async (isFineLocation: boolean) => {
-  const perm = await Geolocation.checkPermissions();
-  if (!!isFineLocation) {
-    if (perm.location !== "granted") {
-      const reqPromt = await Geolocation.requestPermissions({ permissions: ["location"] });
-      return reqPromt.location === "granted";
+  if (Capacitor.getPlatform() !== "web") {
+    const perm = await Geolocation.checkPermissions();
+    if (!!isFineLocation) {
+      if (perm.location !== "granted") {
+        const reqPromt = await Geolocation.requestPermissions({ permissions: ["location"] });
+        return reqPromt.location === "granted";
+      }
+      return true;
     }
-    return true;
-  }
 
-  if (!isFineLocation) {
-    if (perm.coarseLocation !== "granted") {
-      const reqPromt = await Geolocation.requestPermissions({ permissions: ["coarseLocation"] });
-      alert("isFineLocation" + reqPromt.coarseLocation);
-      return reqPromt.coarseLocation === "granted";
+    if (!isFineLocation) {
+      if (perm.coarseLocation !== "granted") {
+        const reqPromt = await Geolocation.requestPermissions({ permissions: ["coarseLocation"] });
+        return reqPromt.coarseLocation === "granted";
+      }
+      return true;
     }
+  } else {
     return true;
   }
 };

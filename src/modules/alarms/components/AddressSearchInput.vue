@@ -4,26 +4,26 @@ import { ServiceLocator } from "@/_core/service/ServiceLocator";
 import { AlarmEventService } from "../services/AlarmEventService";
 import { ref } from "vue";
 import { useDebounceFn } from "@vueuse/core";
+import { AddressService } from "@/modules/main/services/AddressService";
+import { Suggestion } from "@/modules/main/models/DadataSuggetionModel";
 
 const loading = ref(false);
 const searchPattern = ref("");
-const searchResult = ref();
+const searchResult = ref<Suggestion[] | null>();
 
-const debonceSearch = useDebounceFn(async () => {
-  loading.value = true;
-  if (!!searchPattern.value && searchPattern.value.length > 2) {
-    ServiceLocator.instance.getService(AlarmEventService).findAddress("Мурино Шувалова 27");
-  } else {
-    searchResult.value = null;
-  }
-  loading.value = false;
-}, 800);
+const debonceSearch = (pattern: string) => {
+  searchPattern.value = pattern;
+  const debSearchFn = useDebounceFn(async () => {
+    loading.value = true;
+    if (!!searchPattern.value && searchPattern.value.length > 2) {
+      searchResult.value = await ServiceLocator.instance.getService(AddressService).getSuggestions({ query: searchPattern.value });
+    } else {
+      searchResult.value = null;
+    }
+    loading.value = false;
+  }, 800);
 
-const search = async (pattern: string) => {
-  loading.value = true;
-  // resultVisible.value = true;
-  // appStore.doctorSerachPattern = pattern;
-  debonceSearch();
+  debSearchFn();
 };
 
 const searchOnFocus = () => {
@@ -37,14 +37,18 @@ const searchOnFocus = () => {
 </script>
 
 <template>
-  <div class="map-search-input-wrapper h-fit">
+  <div>
     <BaseSearchInput
-      class="p-[2px]"
+      class="map-search-input-wrapper p-[2px]"
       placeholder="Поиск мест и адресов"
-      @update:model-value="search"
+      @update:model-value="debonceSearch"
       @on-focus="searchOnFocus"
     ></BaseSearchInput>
-    <div v-show="!!searchResult" class="relative"></div>
+    <div v-show="!!searchResult && !!searchResult.length" class="relative">
+      <div v-for="(iter, index) in searchResult" :key="index">
+        {{ iter.value }}
+      </div>
+    </div>
   </div>
 </template>
 

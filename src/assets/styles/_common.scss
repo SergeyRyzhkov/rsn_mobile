@@ -1,6 +1,14 @@
 html {
   // overflow-x: hidden;
   // margin-right: calc(-1 * (100vw - 100%));
+  scrollbar-width: none;
+  /*IE10+*/
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+html::-webkit-scrollbar {
+  /*Chrome, Safari, Edge*/
+  display: none;
 }
 
 body {
@@ -9,6 +17,7 @@ body {
 }
 
 .layout-wrapper {
+  height: 100vh;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -16,10 +25,10 @@ body {
 }
 
 .page-wrapper {
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
   flex-grow: 1;
-  will-change: scroll-position;
+  // will-change: scroll-position;
 }
 
 .main-header {

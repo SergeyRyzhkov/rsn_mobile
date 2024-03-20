@@ -94,13 +94,13 @@ const layerProps: YMapLayerProps = {
       <yandex-map-tile-data-source :settings="dataSourceProps" />
       <yandex-map-layer :settings="layerProps" />
     -->
-      <template v-for="(marker, index) in markers" :key="index">
+      <template v-for="(marker, _index) in markers" :key="_index">
         <yandex-map-marker
           :settings="{ coordinates: marker.coords, hideOutsideViewport: true }"
           position="top-center left-center"
           @click="emits('on-marker-click', marker)"
         >
-          <slot name="marker">
+          <slot name="markers" :marker="marker">
             <img class="size-[32px min-w-[32px]" src="/icons/map-current.svg" />
           </slot>
         </yandex-map-marker>

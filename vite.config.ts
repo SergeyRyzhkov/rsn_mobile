@@ -17,6 +17,12 @@ export default ({ mode }) => {
       },
     },
 
+    server: {
+      // port: 8100,
+      // host: "192.168.0.103",
+      //http://192.168.1.68:8100
+    },
+
     build: {
       outDir: path.resolve(__dirname, "dist"),
       emptyOutDir: true,

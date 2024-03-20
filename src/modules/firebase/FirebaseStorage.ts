@@ -175,7 +175,6 @@ export class FirebaseStorage {
     }
 
     for (const folderRef of list.prefixes) {
-      console.log("folderRef", folderRef);
       await this.getFolderSizeRecursive(sizeObj, folderRef.fullPath);
     }
   }
