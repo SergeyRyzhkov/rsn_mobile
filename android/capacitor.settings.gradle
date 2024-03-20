@@ -31,3 +31,6 @@ project(':capawesome-capacitor-file-picker').projectDir = new File('../node_modu
 
 include ':capacitor-appmetrica-plugin'
 project(':capacitor-appmetrica-plugin').projectDir = new File('../node_modules/capacitor-appmetrica-plugin/android')
+
+include ':capacitor-voice-recorder'
+project(':capacitor-voice-recorder').projectDir = new File('../node_modules/capacitor-voice-recorder/android')

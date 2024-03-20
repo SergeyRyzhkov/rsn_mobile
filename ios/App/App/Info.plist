@@ -31,6 +31,8 @@
 	<true/>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Доступ к календарю необходим для создания уведомлений о предстоящем событии.</string>
+    <key>NSMicrophoneUsageDescription</key>
+	<string>Доступ к микрофону необходим для создания аудио меток к событию</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Need to send sending photos in the feedback</string>
 	<key>NSContactsUsageDescription</key>

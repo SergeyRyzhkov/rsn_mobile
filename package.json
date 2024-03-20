@@ -1,6 +1,6 @@
 {
   "name": "ryzhkov.ro.app",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -39,6 +39,7 @@
     "@vueuse/core": "^10.6.1",
     "axios": "^1.6.7",
     "capacitor-appmetrica-plugin": "^3.0.1",
+    "capacitor-voice-recorder": "^5.0.0",
     "class-transformer": "^0.5.1",
     "cordova-plugin-calendar": "^5.1.6",
     "dayjs": "^1.11.10",
