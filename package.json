@@ -1,6 +1,6 @@
 {
   "name": "ryzhkov.ro.app",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -26,6 +26,7 @@
     "@capacitor/camera": "^5.0.9",
     "@capacitor/core": "^5.7.2",
     "@capacitor/device": "^5.0.7",
+    "@capacitor/dialog": "^5.0.7",
     "@capacitor/filesystem": "^5.2.1",
     "@capacitor/geolocation": "^5.0.7",
     "@capacitor/ios": "^5.7.2",
@@ -39,6 +40,7 @@
     "@vueuse/core": "^10.6.1",
     "axios": "^1.6.7",
     "capacitor-appmetrica-plugin": "^3.0.1",
+    "capacitor-native-settings": "^5.0.1",
     "capacitor-voice-recorder": "^5.0.0",
     "class-transformer": "^0.5.1",
     "cordova-plugin-calendar": "^5.1.6",
