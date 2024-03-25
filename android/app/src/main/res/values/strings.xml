@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Ryzhkov Tools</string>
-    <string name="title_activity_main">Ryzhkov Tools</string>
-    <string name="package_name">ryzhkov.dev.ru</string>
-    <string name="custom_url_scheme">ryzhkov.dev.ru</string>
+    <string name="app_name">Шмель</string>
+    <string name="title_activity_main">Шмель</string>
+    <string name="package_name">ryzhkov.ro.app</string>
+    <string name="custom_url_scheme">ryzhkov.ro.app</string>
 </resources>
