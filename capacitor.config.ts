@@ -4,12 +4,12 @@ const config: CapacitorConfig = {
   appName: "Шмель",
   appId: "ryzhkov.ro.app",
   webDir: "dist",
-  server: {
-    iosScheme: "ionic",
-    androidScheme: "http",
-    // url: "http://192.168.0.103:8100",
-    // cleartext: true,
-  },
+  // server: {
+  // iosScheme: "ionic",
+  // androidScheme: "http",
+  // iosScheme: "https",
+  // androidScheme: "https",
+  // },
 
   plugins: {
     PushNotifications: {
@@ -17,13 +17,14 @@ const config: CapacitorConfig = {
     },
 
     SplashScreen: {
-      launchShowDuration: 2000,
+      launchShowDuration: 1500,
       launchAutoHide: true,
       showSpinner: false,
       androidScaleType: "CENTER_CROP",
       backgroundColor: "#ffffffff",
-      splashFullScreen: true,
+      splashFullScreen: false,
       useDialog: false,
+      splashImmersive: true,
     },
   },
 };

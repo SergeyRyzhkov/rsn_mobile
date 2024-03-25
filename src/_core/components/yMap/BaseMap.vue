@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, shallowRef } from "vue";
-import type { YMap } from "@yandex/ymaps3-types";
+import { computed, onMounted, ref, shallowRef, watchEffect } from "vue";
+import type { YMap, LngLat } from "@yandex/ymaps3-types";
 import {
   YandexMap,
   YandexMapDefaultSatelliteLayer,
@@ -43,7 +43,6 @@ const mapInitialized = ref(false);
 onMounted(() => {
   createYmapsOptions({ apikey: props.apiKey });
   mapInitialized.value = true;
-  onMapInit();
 });
 
 const mapFilterCss = computed(() => {
@@ -54,9 +53,18 @@ const onMapInit = () => {
   if (!props.dragEnableOnMobile && window.innerWidth < TABLET_SIZE) {
     map.value?.behaviors["drag"].disable;
   }
+
+  const defaultBehaviors = [map.value?.behaviors["mouseRotate"], map.value?.behaviors["mouseTilt"]];
+  map.value?.setBehaviors([...map.value.behaviors, ...defaultBehaviors]);
+
   emits("on-init", map.value);
-  // map.value?.setMode.setType(props.mapType || "yandex#map");
 };
+
+watchEffect(() => {
+  if (!!map.value) {
+    onMapInit();
+  }
+});
 
 const dataSourceProps: YMapTileDataSourceProps = {
   id: "custom",
@@ -81,11 +89,31 @@ const layerProps: YMapLayerProps = {
     },
   },
 };
+
+async function fetchRoute(startCoordinates: LngLat, endCoordinates: LngLat) {
+  // Request a route from the Router API with the specified parameters.
+  const routes = await ymaps3.route({
+    points: [startCoordinates, endCoordinates], // Start and end points of the route LngLat[]
+    type: "driving", // Type of the route
+    bounds: true, // Flag indicating whether to include route boundaries in the response
+  });
+
+  // Check if a route was found
+  if (!routes[0]) return;
+
+  // Convert the received route to a RouteFeature object.
+  const firstRoute = routes[0].toRoute();
+
+  // Check if a route has coordinates
+  if (firstRoute.geometry.coordinates.length === 0) return;
+
+  return firstRoute;
+}
 </script>
 
 <template>
   <section>
-    <yandex-map v-if="!!mapInitialized" v-model="map" :settings="settings">
+    <yandex-map v-if="!!mapInitialized" v-model="map" :settings="settings" real-settings-location>
       <yandex-map-default-scheme-layer v-if="mapType === 'standart'" />
       <YandexMapDefaultSatelliteLayer v-if="mapType === 'satellite'" />
       <yandex-map-default-features-layer />

@@ -9,7 +9,12 @@ export const convertImageToBlob = async (src: string) => {
 };
 
 export const convertBase64ToBlob = (base64String: string, mimeType: string) => {
-  const blob = new Blob([base64String], { type: mimeType });
+  const byteArray = Uint8Array.from(
+    atob(base64String)
+      .split("")
+      .map((char) => char.charCodeAt(0)),
+  );
+  return new Blob([byteArray], { type: mimeType });
 };
 
 export const convertBlobToBase64 = (blob: Blob): Promise<string> =>
@@ -25,7 +30,6 @@ export const convertBlobToBase64 = (blob: Blob): Promise<string> =>
 export const resizeImage = (src: string): Promise<Blob> => {
   return new Promise((resolve) => {
     const img = document.createElement("img");
-    img.id = Guid.newGuid();
     img.src = src;
 
     img.onload = () => {

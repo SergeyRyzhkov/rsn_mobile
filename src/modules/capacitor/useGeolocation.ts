@@ -1,6 +1,9 @@
 import { Geolocation, Position } from "@capacitor/geolocation";
 import { onUnmounted, ref } from "vue";
 import { Capacitor } from "@capacitor/core";
+import { Dialog } from "@capacitor/dialog";
+import { NativeSettings, AndroidSettings, IOSSettings } from "capacitor-native-settings";
+
 export interface GeoPosition {
   timestamp?: number;
   coords: {
@@ -15,44 +18,71 @@ export interface GeoPosition {
   valid?: boolean;
 }
 
-const checkAppPermissions = async (isFineLocation: boolean) => {
-  if (Capacitor.getPlatform() !== "web") {
-    const perm = await Geolocation.checkPermissions();
-    if (!!isFineLocation) {
-      if (perm.location !== "granted") {
-        const reqPromt = await Geolocation.requestPermissions({ permissions: ["location"] });
-        return reqPromt.location === "granted";
+const checkPermissions = async (isFineLocation: boolean) => {
+  if (Capacitor.isNativePlatform()) {
+    try {
+      const perm = await Geolocation.checkPermissions();
+      if (!!isFineLocation) {
+        if (perm.location !== "granted") {
+          const reqPromt = await Geolocation.requestPermissions({ permissions: ["location"] });
+          return reqPromt.location === "granted";
+        }
+        return true;
       }
-      return true;
-    }
 
-    if (!isFineLocation) {
-      if (perm.coarseLocation !== "granted") {
-        const reqPromt = await Geolocation.requestPermissions({ permissions: ["coarseLocation"] });
-        return reqPromt.coarseLocation === "granted";
+      if (!isFineLocation) {
+        if (perm.coarseLocation !== "granted") {
+          const reqPromt = await Geolocation.requestPermissions({ permissions: ["coarseLocation"] });
+          return reqPromt.coarseLocation === "granted";
+        }
+        return true;
       }
-      return true;
+    } catch {
+      return false;
     }
   } else {
     return true;
   }
 };
 
+const showOpenLocationSettingsDialog = async () => {
+  const res = await Dialog.confirm({
+    okButtonTitle: "Да",
+    cancelButtonTitle: "Нет",
+    title: "Открыть настройки местоположения",
+    message:
+      "Включите позиционирование по GPS, WiFi и мобильным сетям в системных настройках, чтобы увидеть ваше местоположение на карте",
+  });
+
+  if (!!res.value) {
+    NativeSettings.open({
+      optionAndroid: AndroidSettings.Location,
+      optionIOS: IOSSettings.LocationServices,
+    });
+  }
+};
+
 export const useGeolocation = (
   options: PositionOptions = { enableHighAccuracy: true, maximumAge: 1000, timeout: 10000 },
   autoStart = false,
+  showGPSSettingDialogOnFail = false,
   stopWatchOnDestroy = true,
 ) => {
   const currentPostion = ref<GeoPosition>({ coords: {} });
-
   let timerId;
 
   const updateGeoPosition = async () => {
-    if (!!(await checkAppPermissions(options.enableHighAccuracy || true))) {
+    const checkResult = await checkPermissions(options.enableHighAccuracy || true);
+    if (!!checkResult) {
       const position = await Geolocation.getCurrentPosition(options);
       if (!!position) {
         onPositionChanged(position);
         return position;
+      }
+    } else {
+      stopWatchPosition();
+      if (!!showGPSSettingDialogOnFail) {
+        showOpenLocationSettingsDialog();
       }
     }
   };
@@ -96,6 +126,8 @@ export const useGeolocation = (
   });
 
   return {
+    checkPermissions,
+    showOpenLocationSettingsDialog,
     currentPostion,
     startWatchPosition,
     stopWatchPosition,

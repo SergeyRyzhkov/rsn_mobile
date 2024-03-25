@@ -31,10 +31,10 @@ import MainActionButton from "@/layouts/components/MainActionButton.vue";
     ></MainActionButton>
 
     <MainActionButton
-      title="Записи"
+      title="Камеры"
       img-src="/images/weather/weather_main.png"
       bg-color="#94a1fd"
-      :route-props="{ name: 'map' }"
+      :route-props="{ name: 'video-camera-list' }"
       class="ml-[12px]"
     ></MainActionButton>
   </section>

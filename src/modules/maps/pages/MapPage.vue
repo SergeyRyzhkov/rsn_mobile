@@ -10,15 +10,15 @@ const test = async (position: GeoPosition) => {
   // const event = await ServiceLocator.instance.getService(AlarmEventService).getEventById("test");
   // event.geoPosition = position;
   // ServiceLocator.instance.getService(AlarmEventService).updateEvent(event);
-  alert(position.coords.latitude);
+  // alert(position.coords.latitude);
 };
 </script>
 
 <template>
   <BasePage class="bg-page-bg">
-    <template #header>
+    <!-- <template #header>
       <TheHeader />
-    </template>
+    </template> -->
     <template #content>
       <CustomMap class="h-full" @on-position-changed="test"></CustomMap>
     </template>

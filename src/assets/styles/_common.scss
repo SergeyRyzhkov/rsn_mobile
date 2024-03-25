@@ -77,40 +77,6 @@ svg {
   shape-rendering: optimizeSpeed;
 }
 
-.slide-enter-active,
-.slide-leave-active {
-  transition: all 0.3s ease;
-}
-.slide-enter-to {
-  position: absolute;
-  right: 0;
-}
-.slide-enter-from {
-  position: absolute;
-  right: -100vw;
-}
-.slide-leave-to {
-  position: absolute;
-  left: -100vw;
-}
-.slide-leave-from {
-  position: absolute;
-  left: 0;
-}
-
-.slide-left-enter-active,
-.slide-left-leave-active {
-  transition: all 0.3s ease;
-}
-
-.slide-left-enter {
-  transform: translateX(100%);
-}
-
-.slide-left-leave-to {
-  transform: translateX(-100%);
-}
-
 .scroll-snap-item-y {
   scroll-snap-align: start;
 }
@@ -163,8 +129,8 @@ hr {
   position: sticky;
   top: 0px;
   background-color: $primary;
-  padding-bottom: 12px;
-  padding-top: calc(12px + env(safe-area-inset-top));
+  padding-bottom: 13px;
+  padding-top: calc(13px + env(safe-area-inset-top));
 }
 
 .card-wrapper {

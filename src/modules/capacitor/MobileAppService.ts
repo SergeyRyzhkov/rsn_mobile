@@ -20,7 +20,7 @@
 // };
 
 // const openAppStore = async () => {
-//   await AppUpdate.openAppStore();
+//   await AppUpdate.openAppStore(); тут ru вроде
 // };
 
 // const performImmediateUpdate = async () => {

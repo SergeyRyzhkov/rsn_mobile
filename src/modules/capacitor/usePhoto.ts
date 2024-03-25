@@ -1,12 +1,10 @@
-import { resizeImage } from "./../../_core/utils/ImageUtils";
+import { resizeImage } from "../../_core/utils/MeduaUtils";
 import { onMounted } from "vue";
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
 import { Capacitor } from "@capacitor/core";
 import { Camera, CameraResultType } from "@capacitor/camera";
-import { Guid } from "@/_core/utils/Guid";
-import Reducer from "image-blob-reduce";
 
-export const useCamera = () => {
+export const usePhoto = () => {
   onMounted(() => {
     defineCustomElements(window);
   });
@@ -16,15 +14,13 @@ export const useCamera = () => {
   };
 };
 
-const reducer = Reducer();
-
-const getPhoto = async (): Promise<Blob | null | undefined> => {
-  if (Capacitor.getPlatform() !== "web") {
+const getPhoto = async (): Promise<string | null> => {
+  if (Capacitor.isNativePlatform()) {
     const perm = await Camera.checkPermissions();
     if (perm.camera !== "granted" || perm.photos !== "granted") {
       const reqPromt = await Camera.requestPermissions();
       if (reqPromt.camera !== "granted" || perm.photos !== "granted") {
-        return;
+        return null;
       }
     }
   }
@@ -37,11 +33,11 @@ const getPhoto = async (): Promise<Blob | null | undefined> => {
     promptLabelPhoto: "Выбрать из галереи",
     promptLabelHeader: "Фотография",
     promptLabelCancel: "Отмена",
-    correctOrientation: false,
   });
 
   if (!!image && !!image.webPath) {
-    return resizeImage(image.webPath);
+    return image.webPath;
   }
-  Promise.resolve(null);
+
+  return null;
 };

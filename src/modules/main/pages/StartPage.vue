@@ -4,26 +4,29 @@ import TheTopMenu from "@/layouts/components/TheTopMenu.vue";
 import TheBottomActions from "@/layouts/components/TheBottomActions.vue";
 import BaseButton from "@/_core/components/forms/BaseButton.vue";
 import { FirebaseStorage } from "@/modules/firebase/FirebaseStorage";
-import { useCamera } from "@/modules/capacitor/useCamera";
+import { usePhoto } from "@/modules/capacitor/usePhoto";
 import { useFilePicker } from "@/modules/capacitor/useFilePicker";
+import { useMediaRecorder } from "@/modules/capacitor/useMediaRecorder";
 import { ServiceLocator } from "@/_core/service/ServiceLocator";
 import { AlarmEventService } from "@/modules/alarms/services/AlarmEventService";
+import { ref } from "vue";
+import { convertBase64ToBlob, convertImageToBlob, resizeImage } from "@/_core/utils/MeduaUtils";
 
-const camera = useCamera();
-// const geolocation = useGeolocation();
-
+const camera = usePhoto();
+const fireBaseStorage = new FirebaseStorage();
 const filePicker = useFilePicker();
+const { currentStatus, startRecording, stopRecording } = useMediaRecorder();
 
 const openCamera = async () => {
-  const blob = await camera.getPhoto();
+  const imgSrc = await camera.getPhoto();
+  const blob = !!imgSrc ? await convertImageToBlob(imgSrc) : null;
   if (!!blob) {
-    // fireBaseStorage.uploadFile("images/test1.jpeg", blob);
+    fireBaseStorage.uploadFile("images/test1.jpeg", blob);
   }
 };
 
 const openFiles = async () => {
-  const res = await filePicker.pickFiles();
-  alert(res.files[0].data);
+  await filePicker.pickFiles();
 };
 
 const pickVideos = async () => {
@@ -32,22 +35,30 @@ const pickVideos = async () => {
 
 const pickImages = async () => {
   const res = await filePicker.pickImages();
-  // console.log(res.files);
-  console.log(res.files[0].data);
+  if (!!res.files[0].data) {
+    const blob1 = convertBase64ToBlob(res.files[0].data, res.files[0].mimeType);
+    const url = (window.webkitURL || window.URL).createObjectURL(blob1);
+    const blob = await resizeImage(url);
+    if (!!blob) {
+      fireBaseStorage.uploadFile("images/test2.jpeg", blob);
+    }
+  }
+};
+
+const startVoiceRecording = async () => {
+  await startRecording();
+};
+
+const stopVoicerecording = async () => {
+  const res = await stopRecording();
+  console.log(res);
 };
 </script>
 
 <template>
   <BasePage class="bg-page-bg">
     <template #header>
-      <header class="page-header">
-        <div class="flex items-center justify-between container text-white font-medium">
-          Тут будет описание, <br />
-          текущая погода <br />
-          быстрые контакты <br />
-          и проча хрень
-        </div>
-      </header>
+      <header class="page-header"></header>
     </template>
     <template #content>
       <div class="mb-[16px] mt-[20px]">
@@ -63,6 +74,8 @@ const pickImages = async () => {
           <BaseButton class="mt-[32px]" @click="openFiles">openFiles</BaseButton>
           <BaseButton class="mt-[32px]" @click="pickVideos">pickVideos</BaseButton>
           <BaseButton class="mt-[32px]" @click="pickImages">pickImages</BaseButton>
+          <BaseButton class="mt-[32px]" @click="startVoiceRecording">start recordVoice</BaseButton>
+          <BaseButton class="mt-[32px]" @click="stopVoicerecording">stopVoicerecording</BaseButton>
           <!-- <TheBottomActions></TheBottomActions> -->
         </div>
       </div>

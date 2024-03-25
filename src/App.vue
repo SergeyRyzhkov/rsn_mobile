@@ -15,7 +15,7 @@ onMounted(async () => {
 <template>
   <div class="layout-wrapper">
     <router-view v-slot="{ Component }">
-      <transition name="slide-left" mode="out-in">
+      <transition name="fade" mode="out-in">
         <component :is="Component" />
       </transition>
     </router-view>

@@ -32,6 +32,12 @@ const createAppRouter = () => {
       },
 
       {
+        name: "video-camera-list",
+        path: "/video-camera-list",
+        component: () => import("@/modules/alarms/pages/TestVide.vue"),
+      },
+
+      {
         name: "not-found",
         path: "/:catchAll(.*)",
         component: () => import("@/_core/components/NotFound.vue"),
