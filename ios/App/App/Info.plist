@@ -33,8 +33,6 @@
 	<string>Доступ к календарю необходим для создания уведомлений о предстоящем событии.</string>
     <key>NSMicrophoneUsageDescription</key>
 	<string>Доступ к микрофону необходим для создания аудио меток к событию</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Need to send sending photos in the feedback</string>
 	<key>NSContactsUsageDescription</key>
 	<string>$CONTACTS_USAGE_DESCRIPTION</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -43,8 +41,6 @@
 	<string>Ваша геопозиция используется для определения местоположения камеры.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Ваша геопозиция используется для определения местоположения камеры.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Need to send sending images in the feedback</string>
 	<key>SLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Ваша геопозиция используется для определения местоположения камеры.</string>
 	<key>UILaunchStoryboardName</key>
