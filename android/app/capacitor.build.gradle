@@ -21,7 +21,6 @@ dependencies {
     implementation project(':capawesome-capacitor-file-picker')
     implementation project(':capacitor-appmetrica-plugin')
     implementation project(':capacitor-native-settings')
-    implementation project(':capacitor-voice-recorder')
 
 }
 
