@@ -130,13 +130,13 @@ export default {
           <slot name="header" :close="closeModal" :resolve="resolve"></slot>
           <span
             v-if="!!title"
-            class="mx-auto mt-[8px] grow pl-[20px] pr-[40px] text-center text-[16px] md:text-[18px] font-semibold leading-24 md:pl-[32px]"
+            class="mx-auto mt-[8px] grow pl-[20px] pr-[46px] text-center text-[16px] md:text-[18px] font-semibold leading-24 md:pl-[32px]"
           >
             {{ title }}
           </span>
           <button
             v-if="props.showClose"
-            class="dialog_close_button"
+            class="dialog_close_button absolute top-[4px] right-[4px]"
             @click="
               () => {
                 closeModal();

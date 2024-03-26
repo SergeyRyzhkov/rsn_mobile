@@ -29,6 +29,6 @@ watchEffect(() => {
       :placeholder="placeholder || 'Поиск...'"
       @input="onInput"
     />
-    <span class="after:content-['\00d7'] text-24 text-[#848484]" @click="clear()"></span>
+    <button class="dialog_close_button" @click="clear()"></button>
   </div>
 </template>

@@ -146,13 +146,11 @@ pwa-camera-modal-instance {
 }
 
 .dialog_close_button {
-  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 6px;
-  right: 6px;
   width: 26px;
+  min-width: 26px;
   height: 26px;
   border-radius: 50%;
   background-color: #ededed;
