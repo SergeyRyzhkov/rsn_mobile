@@ -24,7 +24,7 @@ const stopRecording = async () => {
     <BaseButton @click="startRecording">startRecording</BaseButton>
     <BaseButton @click="stopRecording">stopRecording</BaseButton>
     <section class="relative">
-      <video class="mt-[20px]" :src="playerSrc?.src" controls></video>
+      <video class="mt-[20px]" :src="playerSrc?.src" controls playsinline></video>
     </section>
   </section>
 </template>

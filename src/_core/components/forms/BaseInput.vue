@@ -126,7 +126,7 @@ defineExpose({ maskFiled });
         ...{ class: [currentClasses, 'base-input__input', classes] },
         ...{ placeholder: '' },
       }"
-      :class="['resize-none overflow-hidden !px-[0px] !pb-[4px] !pt-[24px]']"
+      :class="['resize-none overflow-hidden !px-0 !pb-[4px] !pt-[24px]']"
       @keydown.enter.stop
       @keyup.enter.stop
       @input="
@@ -146,7 +146,6 @@ defineExpose({ maskFiled });
     <input
       v-else
       ref="maskFiled"
-      v-imask="mask"
       :value="inputValue"
       :type="props.type === 'password' && showPassword ? '' : props.type"
       v-bind="{
@@ -171,7 +170,7 @@ defineExpose({ maskFiled });
     <label
       v-if="!!labelText && showLabelInTextarea"
       class="base-input__label"
-      :class="[isMaskFill ? '!left-[0px] !top-[6px] !text-[12px]' : '']"
+      :class="[isMaskFill ? '!left-0 !top-[6px] !text-[12px]' : '']"
       @click.stop="
         {
           if (!!maskFiled) maskFiled.focus();

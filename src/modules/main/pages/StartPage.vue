@@ -7,6 +7,8 @@ import { usePhoto } from "@/modules/capacitor/usePhoto";
 import { useFilePicker } from "@/modules/capacitor/useFilePicker";
 import { useSpeechRecognition } from "@/modules/capacitor/useSpeechRecognition";
 import { convertBase64ToBlob, convertImageToBlob, resizeImage } from "@/_core/utils/MeduaUtils";
+import useModal from "@/_core/components/modal/useModal";
+import CreateAlarmDialog from "@/modules/alarms/components/CreateAlarmDialog.vue";
 
 const camera = usePhoto();
 const fireBaseStorage = new FirebaseStorage();
@@ -21,8 +23,10 @@ const openCamera = async () => {
   }
 };
 
+const modal = useModal();
+
 const openFiles = async () => {
-  await filePicker.pickFiles();
+  modal.show(CreateAlarmDialog);
 };
 
 const pickVideos = async () => {
@@ -66,7 +70,7 @@ const startVoiceRecording = async () => {
 
         <div class="container">
           <BaseButton class="mt-[32px]" @click="openCamera">openCamera</BaseButton>
-          <BaseButton class="mt-[32px]" @click="openFiles">openFiles</BaseButton>
+          <BaseButton class="mt-[32px]" @click="openFiles">SOS</BaseButton>
           <BaseButton class="mt-[32px]" @click="pickVideos">pickVideos</BaseButton>
           <BaseButton class="mt-[32px]" @click="pickImages">pickImages</BaseButton>
           <BaseButton class="mt-[32px]" @click="startVoiceRecording">start recordVoice</BaseButton>

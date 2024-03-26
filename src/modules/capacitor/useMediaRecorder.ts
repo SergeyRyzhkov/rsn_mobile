@@ -1,9 +1,11 @@
-import { RecordRTCPromisesHandler } from "recordrtc";
+import { RecordRTCPromisesHandler, bytesToSize } from "recordrtc";
+import { computed, onUnmounted, ref } from "vue";
 
 export interface RecordingData {
   blob: Blob;
   base64String: string;
   size: number;
+  humanSize: string;
   mimeType: string;
   url: string;
 }
@@ -24,21 +26,28 @@ export interface RecordingOptions {
 const defaultRecordingOptions: RecordingOptions = {
   videoWidth: 720,
   maxSize: 0,
-  startPause: 500,
+  startPause: 0,
   isFrontCamera: true,
   recordAudio: true,
   recordVideo: true,
   mimeType: "video/webm;codecs=vp9,opus",
 };
 
-export const useMediaRecorder = (options?: RecordingOptions) => {
-  const opt = { ...defaultRecordingOptions, ...options };
+export const useMediaRecorder = () => {
+  const totalSize = ref(0);
+  const humanTotalSize = computed(() => bytesToSize(totalSize.value));
 
   let recorder: RecordRTCPromisesHandler | null;
+  let dataCallbak: ((result: RecordingData) => void) | null | undefined;
 
-  const startRecording = async () => {
+  const startRecording = async (options?: RecordingOptions) => {
+    dataCallbak = options?.onDataCallback;
+    await stopRecording();
+
+    const opt = { ...defaultRecordingOptions, ...options };
+
     if (!!opt.recordVideo || !!opt.recordAudio) {
-      let recordingSize = 0;
+      totalSize.value = 0;
       const stream = await navigator.mediaDevices.getUserMedia({
         video: !!opt.recordVideo
           ? {
@@ -51,18 +60,18 @@ export const useMediaRecorder = (options?: RecordingOptions) => {
 
       recorder = new RecordRTCPromisesHandler(stream, {
         // type: "video",
-        timeSlice: 1000, // pass this parameter
+        timeSlice: 500, // pass this parameter
         disableLogs: true,
         checkForInactiveTracks: true,
         // bitsPerSecond: 10000000,
         //@ts-ignore
         mimeType: opt.mimeType || "video/webm;codecs=vp9,opus",
         ondataavailable: (blob) => {
-          recordingSize += blob.size;
+          totalSize.value += blob.size;
           if (!!opt.onChunkCallback) {
             opt.onChunkCallback(blob);
           }
-          if (!!opt.maxSize && recordingSize >= opt.maxSize) {
+          if (!!opt.maxSize && totalSize.value >= opt.maxSize) {
             stopRecording();
           }
         },
@@ -76,25 +85,29 @@ export const useMediaRecorder = (options?: RecordingOptions) => {
       recorder.stream = stream;
 
       const sleep = (m: number) => new Promise((r) => setTimeout(r, m));
-      await sleep(opt.startPause || 500);
+      if (!!opt.startPause && opt.startPause > 0) {
+        await sleep(opt.startPause || 500);
+      }
 
       await recorder.startRecording();
+      return stream;
     }
   };
 
   const stopRecording = async (): Promise<RecordingData | null> => {
     if (!!recorder) {
       await recorder.stopRecording();
+
       const blob = await recorder.getBlob();
       const base64String = await recorder.getDataURL();
-      const mimeType = blob.type;
-      const size = blob.size;
 
       //@ts-ignore
-      const tracks = recorder.stream.getTracks() as MediaStreamTrack[];
+      const tracks = recorder.stream?.getTracks() as MediaStreamTrack[];
       if (!!tracks) {
         tracks.forEach((iter) => iter.stop());
       }
+      //@ts-ignore
+      recorder.stream = null;
 
       await recorder.reset();
       await recorder.destroy();
@@ -104,26 +117,27 @@ export const useMediaRecorder = (options?: RecordingOptions) => {
         blob,
         base64String,
         url: (window.webkitURL || window.URL).createObjectURL(blob),
-        mimeType: opt.mimeType || "video/webm;codecs=vp9,opus",
-        size,
+        mimeType: blob.type || "video/webm;codecs=vp9,opus",
+        size: blob.size,
+        humanSize: bytesToSize(blob.size),
       };
 
-      if (!!opt.onDataCallback) {
-        opt.onDataCallback(result);
+      if (!!dataCallbak) {
+        dataCallbak(result);
       }
-
       return result;
     }
     return null;
   };
 
-  const currentStatus = async () => {
-    return !!recorder ? await recorder?.getState() : "destroyed";
-  };
+  onUnmounted(() => {
+    stopRecording();
+  });
 
   return {
+    totalSize,
+    humanTotalSize,
     startRecording,
     stopRecording,
-    currentStatus,
   };
 };

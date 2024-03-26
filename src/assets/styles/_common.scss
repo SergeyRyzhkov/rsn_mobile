@@ -149,9 +149,9 @@ pwa-camera-modal-instance {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  min-width: 26px;
-  height: 26px;
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
   border-radius: 50%;
   background-color: #ededed;
 
@@ -159,7 +159,7 @@ pwa-camera-modal-instance {
     content: "\00d7";
     color: #828284;
     font-weight: 400 !important;
-    font-size: 26px;
+    font-size: 22px;
     font-family: "Open Sans";
   }
 }

@@ -128,15 +128,12 @@ export default {
       >
         <div class="flex items-start justify-between">
           <slot name="header" :close="closeModal" :resolve="resolve"></slot>
-          <span
-            v-if="!!title"
-            class="mx-auto mt-[8px] grow pl-[20px] pr-[46px] text-center text-[16px] md:text-[18px] font-semibold leading-24 md:pl-[32px]"
-          >
+          <span v-if="!!title" class="mx-auto mt-[12px] grow text-center text-[15px] md:text-[18px] font-semibold md:pl-[32px]">
             {{ title }}
           </span>
           <button
             v-if="props.showClose"
-            class="dialog_close_button absolute top-[4px] right-[4px]"
+            class="dialog_close_button mt-[6px] mr-[6px] ml-auto"
             @click="
               () => {
                 closeModal();

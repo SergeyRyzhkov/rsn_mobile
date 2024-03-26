@@ -5,11 +5,16 @@ import { FirebaseStorage } from "@/modules/firebase/FirebaseStorage";
 import { Guid } from "@/_core/utils/Guid";
 import { EventMember, EventMemberStatus } from "../models/EventMember";
 import { EventGeoPosition } from "../models/EventGeoPosition";
+import { AlarmEventTypeList } from "../models/EventTypes";
 
 export class AlarmEventService extends BaseService {
   DB_PATH = "ro_db/alarm_events";
 
   storage = new FirebaseStorage();
+
+  getDefaultAlarmEventTypeList() {
+    return AlarmEventTypeList;
+  }
 
   createEvent() {
     const newEvent: Partial<AlarmEvent> = {};

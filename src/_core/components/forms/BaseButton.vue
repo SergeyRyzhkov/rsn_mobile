@@ -50,7 +50,7 @@ const isDisabled = computed(() => {
       isDisabled && outlined ? '!border-[#B7D5D8] !bg-white !text-[#B7D5D8]' : '',
       paddingEmpty ? 'p-0' : '',
       outlined ? 'hover:bg-secondary/15 border border-secondary bg-white text-secondary ' : '',
-      gray ? 'bg-[#ededed] hover:bg-gray-500 text-primary' : '',
+      gray ? 'bg-[#ededed] hover:bg-gray-500 text-gray-500' : '',
     ]"
     v-bind="{
       ...$attrs,

@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import BaseOKCancelModal from "@/_core/components/modal/BaseOKCancelModal.vue";
+import CreateAlarm from "./CreateAlarm.vue";
 </script>
 
 <template>
-  <BaseOKCancelModal
-    v-bind="{
-      ...$attrs,
-    }"
-  >
+  <BaseOKCancelModal ok-button-title="Создать">
+    <CreateAlarm></CreateAlarm>
   </BaseOKCancelModal>
 </template>

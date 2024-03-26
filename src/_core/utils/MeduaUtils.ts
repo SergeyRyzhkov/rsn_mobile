@@ -1,7 +1,4 @@
-import { Guid } from "@/_core/utils/Guid";
 import Reducer from "image-blob-reduce";
-
-const reducer = Reducer();
 
 export const convertImageToBlob = async (src: string) => {
   const response = await fetch(src!);
@@ -26,6 +23,8 @@ export const convertBlobToBase64 = (blob: Blob): Promise<string> =>
     };
     reader.readAsDataURL(blob);
   });
+
+const reducer = Reducer();
 
 export const resizeImage = (src: string): Promise<Blob> => {
   return new Promise((resolve) => {

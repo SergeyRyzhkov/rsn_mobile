@@ -25,10 +25,9 @@ const emits = defineEmits<{
   align-items: center;
   border-radius: 39px;
   background: #2f334e;
-  font-size: 12px;
+  font-size: 13px;
   color: white;
   white-space: nowrap;
-  margin-right: 8px;
   cursor: pointer;
 }
 
