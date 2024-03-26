@@ -3,7 +3,6 @@
   "version": "0.3.5",
   "license": "MIT",
   "type": "module",
-  "mode": "debug",
   "scripts": {
     "build": "vue-tsc --noEmit && vite build",
     "build.android": "npm run build && npx cap sync android",
