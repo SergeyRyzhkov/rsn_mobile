@@ -15,6 +15,7 @@ const props = withDefaults(
     disabled?: boolean;
     disabledGray?: boolean;
     smallText?: boolean;
+    innerClass?: string;
   }>(),
   {
     paddingEmpty: false,
@@ -44,19 +45,19 @@ const isDisabled = computed(() => {
       'transition-all',
       !props.outlined && !props.gray ? 'bg-secondary  text-white hover:bg-secondary' : '',
       isDisabled
-        ? '!hover:border-[#B7D5D8] !hover:bg-[#B7D5D8] !cursor-default border !border-secondary !bg-[#FDF5FB] !text-secondary !font-normal opacity-80'
+        ? 'hover:!border-[#B7D5D8] hover:!bg-[#B7D5D8] !cursor-default border !border-secondary !bg-[#FDF5FB] !text-secondary !font-normal opacity-80'
         : '',
       isDisabled && outlined ? '!border-[#B7D5D8] !bg-white !text-[#B7D5D8]' : '',
       paddingEmpty ? 'p-0' : '',
-      outlined ? 'hover:bg-secondary/[15] border border-secondary bg-white text-secondary ' : '',
-      gray ? 'bg-[#F7F8FD] hover:bg-gray-300 text-secondary' : '',
+      outlined ? 'hover:bg-secondary/15 border border-secondary bg-white text-secondary ' : '',
+      gray ? 'bg-[#ededed] hover:bg-gray-500 text-primary' : '',
     ]"
     v-bind="{
       ...$attrs,
       disabled: isDisabled,
     }"
   >
-    <div class="mx-[14px] mb-[16px] mt-[13px] font-semibold" :class="[smallText ? 'text-12' : 'text-15']">
+    <div class="mx-[14px] mb-[16px] mt-[13px] font-semibold" :class="[smallText ? 'text-12' : 'text-15', innerClass]">
       <slot></slot>
     </div>
 

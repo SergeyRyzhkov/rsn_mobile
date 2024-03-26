@@ -1,21 +1,17 @@
 <script setup lang="ts">
 import BasePage from "@/layouts/components/BasePage.vue";
 import TheTopMenu from "@/layouts/components/TheTopMenu.vue";
-import TheBottomActions from "@/layouts/components/TheBottomActions.vue";
 import BaseButton from "@/_core/components/forms/BaseButton.vue";
 import { FirebaseStorage } from "@/modules/firebase/FirebaseStorage";
 import { usePhoto } from "@/modules/capacitor/usePhoto";
 import { useFilePicker } from "@/modules/capacitor/useFilePicker";
-import { useMediaRecorder } from "@/modules/capacitor/useMediaRecorder";
-import { ServiceLocator } from "@/_core/service/ServiceLocator";
-import { AlarmEventService } from "@/modules/alarms/services/AlarmEventService";
-import { ref } from "vue";
+import { useSpeechRecognition } from "@/modules/capacitor/useSpeechRecognition";
 import { convertBase64ToBlob, convertImageToBlob, resizeImage } from "@/_core/utils/MeduaUtils";
 
 const camera = usePhoto();
 const fireBaseStorage = new FirebaseStorage();
 const filePicker = useFilePicker();
-const { currentStatus, startRecording, stopRecording } = useMediaRecorder();
+const { start, stop, listeningState } = useSpeechRecognition();
 
 const openCamera = async () => {
   const imgSrc = await camera.getPhoto();
@@ -46,26 +42,25 @@ const pickImages = async () => {
 };
 
 const startVoiceRecording = async () => {
-  await startRecording();
-};
-
-const stopVoicerecording = async () => {
-  const res = await stopRecording();
-  console.log(res);
+  start((matches: string[]) => {
+    console.log(matches);
+  });
 };
 </script>
 
 <template>
   <BasePage class="bg-page-bg">
-    <template #header>
-      <header class="page-header"></header>
-    </template>
+    <!-- <template #header>
+      <header class="page-header">
+        {{ listeningState }}
+      </header>
+    </template> -->
     <template #content>
       <div class="mb-[16px] mt-[20px]">
         <div class="container">
           <TheTopMenu></TheTopMenu>
         </div>
-        <section class="flex flex-col my-auto relative max-h-[50vh] h-[50vh]">
+        <section class="flex flex-col m-auto relative max-h-[40vh] h-[40vh] mt-[42px]">
           <img src="/images/main_page.png" alt=" " class="object-contain z-40 h-full" />
         </section>
 
@@ -75,7 +70,6 @@ const stopVoicerecording = async () => {
           <BaseButton class="mt-[32px]" @click="pickVideos">pickVideos</BaseButton>
           <BaseButton class="mt-[32px]" @click="pickImages">pickImages</BaseButton>
           <BaseButton class="mt-[32px]" @click="startVoiceRecording">start recordVoice</BaseButton>
-          <BaseButton class="mt-[32px]" @click="stopVoicerecording">stopVoicerecording</BaseButton>
           <!-- <TheBottomActions></TheBottomActions> -->
         </div>
       </div>

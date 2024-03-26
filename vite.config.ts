@@ -4,23 +4,16 @@ import vue from "@vitejs/plugin-vue";
 import path from "path";
 
 export default ({ mode }) => {
-  return defineConfig({
-    plugins: [vue()],
+  process.env = Object.assign(process.env, loadEnv(mode, process.cwd(), ""));
 
-    define: {
-      "process.env": { ...process.env, ...loadEnv("production", process.cwd()) },
-    },
+  const config = defineConfig({
+    plugins: [vue()],
 
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
       },
     },
-
-    // server: {
-    //   port: 8100,
-    //   host: "192.168.0.103",
-    // },
 
     build: {
       outDir: path.resolve(__dirname, "dist"),
@@ -39,4 +32,13 @@ export default ({ mode }) => {
       },
     },
   });
+
+  // if (!!process.env.VITE_CAPACITOR_LIVE) {
+  //   config.server = {
+  //     port: 8100,
+  //     host: "192.168.0.103",
+  //   };
+  // }
+
+  return config;
 };

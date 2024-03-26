@@ -1,8 +1,11 @@
 import { Geolocation, Position } from "@capacitor/geolocation";
 import { onUnmounted, ref } from "vue";
 import { Capacitor } from "@capacitor/core";
-import { Dialog } from "@capacitor/dialog";
 import { NativeSettings, AndroidSettings, IOSSettings } from "capacitor-native-settings";
+import useModal from "@/_core/components/modal/useModal";
+import ConfirmModal from "@/_core/components/modal/ConfirmModal.vue";
+
+const modal = useModal();
 
 export interface GeoPosition {
   timestamp?: number;
@@ -46,7 +49,7 @@ const checkPermissions = async (isFineLocation: boolean) => {
 };
 
 const showOpenLocationSettingsDialog = async () => {
-  const res = await Dialog.confirm({
+  const res = await modal.show(ConfirmModal, {
     okButtonTitle: "Да",
     cancelButtonTitle: "Нет",
     title: "Открыть настройки местоположения",
@@ -54,7 +57,7 @@ const showOpenLocationSettingsDialog = async () => {
       "Включите позиционирование по GPS, WiFi и мобильным сетям в системных настройках, чтобы увидеть ваше местоположение на карте",
   });
 
-  if (!!res.value) {
+  if (!!res) {
     NativeSettings.open({
       optionAndroid: AndroidSettings.Location,
       optionIOS: IOSSettings.LocationServices,

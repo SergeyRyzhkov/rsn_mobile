@@ -17,14 +17,19 @@ const config: CapacitorConfig = {
     },
 
     SplashScreen: {
-      launchShowDuration: 1500,
+      launchShowDuration: 2000,
       launchAutoHide: true,
       showSpinner: false,
       androidScaleType: "CENTER_CROP",
       backgroundColor: "#ffffffff",
-      splashFullScreen: false,
+      splashFullScreen: true,
       useDialog: false,
       splashImmersive: true,
+    },
+
+    Badge: {
+      persist: true,
+      autoClear: false,
     },
   },
 };

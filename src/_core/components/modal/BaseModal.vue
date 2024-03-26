@@ -16,7 +16,6 @@ const props = withDefaults(
     contentClasses?: string;
     loading?: boolean;
     title?: string;
-    subTitle?: string;
     submitButtonName?: string;
     cancelButtonName?: string;
     resolve?: () => void;
@@ -114,7 +113,7 @@ export default {
 
 <template>
   <Teleport to="#app">
-    <div v-if="showModal" :class="['fixed inset-0 flex', 'z-[99999]']" @keyup.enter="okClicked(resolve, closeModal)">
+    <div v-if="showModal" :class="['fixed inset-0 flex', 'z-[99999999999]']" @keyup.enter="okClicked(resolve, closeModal)">
       <div class="fixed inset-0" :class="['bg-black opacity-40 ', props.overlayClasses]"></div>
       <div
         ref="modal"
@@ -127,36 +126,29 @@ export default {
         aria-modal="true"
         aria-labelledby="modal-headline"
       >
-        <div class="flex items-start justify-between pb-[8px]">
+        <div class="flex items-start justify-between">
           <slot name="header" :close="closeModal" :resolve="resolve"></slot>
           <span
             v-if="!!title"
-            class="mx-auto mt-[8px] grow pl-[20px] text-center text-[16px] font-semibold leading-24 md:pl-[32px] md:text-[18px]"
+            class="mx-auto mt-[8px] grow pl-[20px] pr-[40px] text-center text-[16px] md:text-[18px] font-semibold leading-24 md:pl-[32px]"
           >
             {{ title }}
           </span>
-          <span
+          <button
             v-if="props.showClose"
-            class="m-[10px] !ml-auto flex cursor-pointer items-center justify-center pl-[10px] text-[28px] leading-14 text-gray-500 transition-all after:content-['\00d7'] hover:text-gray-800 md:m-[12px]"
+            class="dialog_close_button"
             @click="
               () => {
                 closeModal();
               }
             "
-          ></span>
+          ></button>
         </div>
-
-        <div
-          v-if="!!subTitle"
-          class="mx-[16px] text-center text-14 text-gray-700/80 md:mx-[24px] md:text-16"
-          :class="[title ? 'mt-[18px] md:mt-[24px]' : '']"
-          v-html="subTitle"
-        ></div>
 
         <div
           v-if="contentExists"
           :class="[
-            'ml-[18px] mr-[6px] mt-[6px] grow overflow-y-auto py-[18px] pr-[16px] md:ml-[24px] md:mt-[12px] md:pr-[18px]',
+            'ml-[18px] mr-[6px] grow overflow-y-auto py-[14px] pr-[16px] md:ml-[24px] md:mt-[12px] md:pr-[18px]',
             props.contentClasses,
           ]"
         >

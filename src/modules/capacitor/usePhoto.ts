@@ -1,4 +1,3 @@
-import { resizeImage } from "../../_core/utils/MeduaUtils";
 import { onMounted } from "vue";
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
 import { Capacitor } from "@capacitor/core";

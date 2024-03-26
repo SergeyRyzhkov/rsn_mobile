@@ -144,3 +144,24 @@ hr {
 pwa-camera-modal-instance {
   z-index: 999999999999;
 }
+
+.dialog_close_button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #ededed;
+
+  &::after {
+    content: "\00d7";
+    color: #828284;
+    font-weight: 400 !important;
+    font-size: 26px;
+    font-family: "Open Sans";
+  }
+}

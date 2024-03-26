@@ -21,7 +21,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="relative flex items-center py-[8px] px-[10px]" @click="emit('on-focus')">
+  <div class="relative flex items-center py-[9px] px-[10px]" @click="emit('on-focus')">
     <img src="/icons/search.svg" width="20" height="20" class="left-[12px] size-[20px]" alt=" " />
     <input
       class="w-full ml-[10px] mr-[16px] outline-none bg-transparent"

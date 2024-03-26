@@ -13,7 +13,8 @@ const startRecording = async () => {
 
 const stopRecording = async () => {
   const data = await recorder.stopRecording();
-  playerSrc.value.src = data?.base64String;
+
+  if (!!data?.blob) playerSrc.value.src = URL.createObjectURL(data?.blob);
 };
 </script>
 

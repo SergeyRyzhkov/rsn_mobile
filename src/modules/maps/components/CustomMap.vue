@@ -41,6 +41,7 @@ const onMapInit = (map: YMap) => {
 };
 
 const gotoToMyGeolocation = async (changeCenter = false) => {
+  showOpenLocationSettingsDialog();
   if (!!(await checkPermissions(true))) {
     const position = await updateGeoPosition();
     if (!!position && !!position.coords.latitude && !!position.coords.longitude) {

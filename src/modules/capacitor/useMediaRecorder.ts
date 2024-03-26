@@ -1,10 +1,11 @@
-import { RecordRTCPromisesHandler, bytesToSize } from "recordrtc";
+import { RecordRTCPromisesHandler } from "recordrtc";
 
 export interface RecordingData {
   blob: Blob;
   base64String: string;
   size: number;
   mimeType: string;
+  url: string;
 }
 
 export interface RecordingOptions {
@@ -15,6 +16,7 @@ export interface RecordingOptions {
   isFrontCamera?: boolean;
   recordAudio?: boolean;
   recordVideo?: boolean;
+  mimeType?: string;
   onChunkCallback?: (blob: Blob) => void;
   onDataCallback?: (result: RecordingData) => void;
 }
@@ -26,6 +28,7 @@ const defaultRecordingOptions: RecordingOptions = {
   isFrontCamera: true,
   recordAudio: true,
   recordVideo: true,
+  mimeType: "video/webm;codecs=vp9,opus",
 };
 
 export const useMediaRecorder = (options?: RecordingOptions) => {
@@ -50,10 +53,10 @@ export const useMediaRecorder = (options?: RecordingOptions) => {
         // type: "video",
         timeSlice: 1000, // pass this parameter
         disableLogs: true,
-        checkForInactiveTracks: false,
+        checkForInactiveTracks: true,
         // bitsPerSecond: 10000000,
         //@ts-ignore
-        // mimeType: "video/webm;codecs=vp9",
+        mimeType: opt.mimeType || "video/webm;codecs=vp9,opus",
         ondataavailable: (blob) => {
           recordingSize += blob.size;
           if (!!opt.onChunkCallback) {
@@ -100,7 +103,8 @@ export const useMediaRecorder = (options?: RecordingOptions) => {
       const result = {
         blob,
         base64String,
-        mimeType,
+        url: (window.webkitURL || window.URL).createObjectURL(blob),
+        mimeType: opt.mimeType || "video/webm;codecs=vp9,opus",
         size,
       };
 
