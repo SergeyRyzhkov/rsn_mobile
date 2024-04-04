@@ -19,6 +19,17 @@ const inputRefs = ref<HTMLInputElement[]>([]);
 const digits = ref<string[] | null[]>([]);
 
 const handleKeyDown = (event: KeyboardEvent, index: number) => {
+  if (
+    (event.key === KeyboardKeyEnum.Backspace || event.key === KeyboardKeyEnum.ArrowLeft) &&
+    index === props.digitCount - 1 &&
+    //@ts-ignore
+    numRegExp.test(event.target.value)
+  ) {
+    digits.value[props.digitCount - 1] = null;
+    // inputRefs.value[index].focus();
+    // return;
+  }
+
   const focusIndex =
     event.key === KeyboardKeyEnum.Backspace || event.key === KeyboardKeyEnum.ArrowLeft
       ? index !== 0
